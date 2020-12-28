@@ -2,7 +2,6 @@
 
 
 # 如果需要将你的文件复制到指定目录
-cp -r ../dist /export/Data/ #使用相对路径     cp -r /export/App/resource /export/Data/ # 使用绝对路径
 
 # 如果需要替换nginx文件
 #rm -rf /export/servers/nginx/conf/nginx.
