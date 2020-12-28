@@ -7,7 +7,7 @@
     "client-build": "npm run build --prefix client",
     "server": "cross-env NODE_ENV=dev nodemon app.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json",
+    "prd": "cross-env NODE_ENV=production pm2 start pm2.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "concurrently \"npm run client-build\""
   },
