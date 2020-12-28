@@ -1,12 +1,15 @@
 {
-  "apps": [
-    {
-      "name": "nodejs-test",
-      "max_memory_restart": "300M",
-      "script": "/export/App/app.js",
-      "out_file": "/export/logs/access.log",
-      "error_file": "/export/logs/access.log",
-      "instances": 4
+   "apps": {
+        "name": "blog",
+        "script": "./app.js",
+        "watch": true,
+        "ignore_watch": [
+            "node_modules",
+            "logs"
+        ],
+        "instances": 4,
+        "error_file": "logs/err.log",
+        "out_file": "logs/out.log",
+        "log_date_format": "YYYY-MM-DD HH:mm:ss"
     }
-  ]
 }
