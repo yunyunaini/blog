@@ -1,0 +1,98 @@
+// 页面统一样式
+.logo {
+  margin-right: 1.5rem;
+  &-pc {
+    width: 98px;
+    height: 50px;
+    display: block;
+    @media only screen and (max-width: 750px) { 
+      display: none;
+    }
+  }
+  &-mobile {
+    width: 45px;
+    height: 42px;
+    display: none;
+    @media only screen and (max-width: 750px) { 
+      display: block;
+    }
+  }
+}
+
+.container {
+  @include flexcolumn($jc:center, $ai: center);
+  .main {
+    width: 100%;
+    max-width: 994px;
+    position: relative;
+    margin-bottom: 20px;
+    @include flexcenter($jc:space-between, $ai: none);
+    .asside {
+      width: 240px;
+      @media only screen and (max-width: 1024px) { 
+        display: none
+      }
+    }
+  }
+}
+
+.section, article {
+  width: 730px;
+  box-sizing: border-box;
+  @media only screen and (max-width: 1024px) { 
+    width: 100%;
+  }
+}
+.section-wrapper {
+  background: #fff;
+  @include flexcolumn($jc:center, $ai: none);
+  min-height: 148px;
+}
+
+// 首页文字标题样式
+.article-title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: $title-color;
+  @include twoLines();
+  &:hover {
+    color: $primary;
+    // text-decoration: underline !important;
+  }
+  @media only screen and (max-width: 767px) { 
+    font-size: 1.2rem;
+  }
+}
+
+// 导航吸顶标签tab样式  
+.navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  line-height: 44px;
+  top: 5rem;
+  width: 100%;
+  height: 44px;
+  z-index: 100;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
+  transition: all .2s;
+  background: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  &-fixed {
+    transition: transform .2s;
+    transform: translate3d(0,-60px,0);
+  }
+}
+
+// 移动端隐藏
+.mobile-none {
+  // display: block;
+  @media only screen and (max-width: 768px) { 
+    display: none;
+  }
+}
+.search-keyword {
+  color: #e8001c;
+  font-weight: bold;
+}

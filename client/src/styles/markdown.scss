@@ -1,0 +1,144 @@
+.article-content {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.75;
+  word-break: break-word;
+  // font-family: Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-rendering: optimizeLegibility;
+  ul {
+    padding-left: 28px;
+    list-style: inherit;
+    li {
+      margin-bottom: 0;
+      list-style: inherit;
+    }
+  }
+    /*对 markdown 样式的补充*/
+  pre {
+    display: block;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #222;
+    font-size: 14px;
+    padding: 18px 15px 12px;
+    background: #f8f8f8;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: auto;
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace;
+  }
+  blockquote {
+    color: #666;
+    padding: 1px 23px;
+    margin: 22px 0;
+    border-left: 4px solid #cbcbcb;
+    background-color: #f8f8f8;
+  }
+  h1,h2,h3,h4,h5,h6{
+    padding-top: 120px;
+    margin-top: -120px;
+    margin-bottom: 12px;
+    flex-wrap: 600;
+    /* margin-bottom: 1em; */
+  }
+  h1, h2 {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ececec;
+  }
+  strong {
+    font-weight: bold;
+  }
+  p {
+    display: block;
+    word-spacing: 2px;
+    font-size: 16px;
+    line-height: 26px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }
+
+  p > code:not([class]) {
+    padding: 2px 4px;
+    color: #c7254e;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+  }
+  p img{
+    /* 图片居中 */
+    margin: 0 auto;
+    display: flex;
+  }
+  img {
+    margin: 0 auto;
+    max-width: 52.142857rem /* 730/14 */;
+    zoom: 60%;
+  }
+  a {
+    text-decoration: none;
+    color: $primary;
+    border-bottom: 1px solid #d1e9ff;
+  }
+  table {
+    display: inline-block!important;
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.2;
+    border: 1px solid #f6f6f6;
+    thead {
+      background: #f6f6f6;
+      color: #000;
+      text-align: left;
+      tr {
+        padding-top: 10px;
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        td, th {
+          padding: 12px 6px;
+          line-height: 24px;
+          text-align: center;
+        }
+      }
+    }
+    tbody {
+      tr {
+        padding-top: 10px;
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+        td, th {
+          border-bottom: 1px solid #f6f6f6;
+          padding: 6px;
+          line-height: 1.2;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+// markdown 设置
+.markdown-article {
+  .tui-editor-defaultUI .CodeMirror-lines {
+    font-size: 1.214286rem /* 17/14 */;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+  .tui-editor-defaultUI .CodeMirror-scroll {
+    background-color: #f8f9fa;
+  }
+  .tui-editor .te-preview-style-vertical .te-preview {
+    background: #fff;
+  }
+  .te-md-container .te-preview .tui-editor-contents {
+    font-size: 1.214286rem /* 17/14 */;
+  }
+  .tui-editor-defaultUI .te-mode-switch-section {
+    height: 35px!important;
+    background: #fff;
+  }
+}
+

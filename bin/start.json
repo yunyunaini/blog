@@ -1,0 +1,12 @@
+{
+  "apps": [
+    {
+      "name": "nodejs-test",
+      "max_memory_restart": "300M",
+      "script": "/export/App/app.js",
+      "out_file": "/export/logs/access.log",
+      "error_file": "/export/logs/access.log",
+      "instances": 4
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "compilerOptions": {
+    "target": "esnext", // 指定ECMAScript 目标版本
+    "module": "esnext", // 指定使用模版：'commentjs','amd'
+    "strict": true,  //启用所有的严格类型检查选项
+    "jsx": "preserve",
+    "importHelpers": true, // 从 tslib 导入辅助工具函数
+    "moduleResolution": "node", // 选择模版解析策略
+    "experimentalDecorators": true, // 启用实验性的ES装饰器
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,  // 允许从没有设置默认导出的模块中默认导入。
+    // "suppressImplicitAnyIndexErrors":true,
+    // "noImplicitAny": false, // 在表达式和声明上有隐含的any类型会报错
+    "sourceMap": true, // 把ts文件编译程js文件的时候，同时生成对应的map文件
+    "baseUrl": ".",
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "types": [
+      "node",
+      "jest",
+      "webpack-env"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "vant/lib/list": [
+        "node_modules/vant/types/list"
+      ],
+      "vant/lib/tabs": [
+        "node_modules/vant/types/tabs"
+      ],
+      "vant/lib/tab": [
+        "src/components/vant/tab"
+      ],
+      "vant/lib/swipe": [
+        "node_modules/vant/types/swipe"
+      ],
+      "vant/lib/swipe-item": [
+        "src/components/vant/swipe-item"
+      ],
+      "vant/lib/skeleton": [
+        "src/components/vant/skeleton"
+      ],
+      "vant/lib/sticky": [
+        "src/components/vant/sticky"
+      ],
+      "vant/lib/loading": [
+        "src/components/vant/loading"
+      ],
+      "vant/lib/empty": [
+        "src/components/vant/empty"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [  // 需要编译的ts文件一个*表示文件匹配**表示忽略文件的深度问题
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "declare module '*.png'",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+

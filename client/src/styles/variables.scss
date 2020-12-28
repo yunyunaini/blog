@@ -1,0 +1,114 @@
+/*
+* elment-ui 样式更改
+*/
+// 导航栏搜索按钮样式 
+.navbar-wrapper__search {
+  .el-input__inner {
+    padding-right: 30px;
+    background-color:rgba(227,231,236,.2);
+    &:focus {
+      background-color: #fff;
+    }
+  }
+}
+
+//我的页导航
+.section-author {
+  .el-tabs__header {
+    margin: 0;
+    background-color: #fff;
+  }
+  .el-tabs__nav-wrap {
+    padding: 0 0 0 2rem;
+  }
+}
+
+// 清除popover弹窗的样式
+.el-popover {
+  padding: 0;
+}
+
+// 跑马灯
+// .van-swipe__indicators {
+//   position: absolute;
+//   bottom: 2rem;
+//   right: 3rem;
+//   display: flex;
+//   justify-content: flex-end;
+//   transform: none;
+// }
+
+// 注册验证码
+.el-input-group__append, .el-input-group__prepend {
+  color: $primary;
+  background: #fff;
+  font-weight: 500;
+  width: 50px;
+  padding: 0 10px;
+  cursor: pointer;
+  .reset {
+    width: 70px;
+    text-align: center;
+    font-weight: normal;
+    .reset-time {
+      display: inline-block;
+      width: 16px;
+    }
+  }
+}
+.van-list__finished-text {
+  background-color: #f4f5f5;
+}
+
+// 提问输入框
+.ask-content {
+  .el-input--medium .el-input__inner {
+    height: 48px;
+    line-height: 49px;
+    font-size: 18px;
+  }
+  .el-button--medium {
+    padding: 9px 10px;
+    font-weight: normal;
+  }
+  .el-tag {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+// 
+.tag-container {
+  .el-popover {
+    padding: 12px;
+  }
+}
+
+// 发布多选框
+.type {
+  .el-input {
+    width: 240px;
+  }
+  .el-button {
+    color: $primary;
+    border: 1px solid $primary;
+  }
+}
+
+// markdown
+.markdown {
+  .el-input__inner {
+    color: #000 !important;
+    font-weight: 700;
+    border: none;
+    outline: none;
+  }
+}
+
+// 问答评论
+.form {
+  .markdown {
+    .te-mode-switch-section {
+      display: none !important;
+    }
+  }
+}

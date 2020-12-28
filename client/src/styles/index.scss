@@ -1,0 +1,31 @@
+@import './icon.scss';
+@import './variables.scss';
+@import './markdown.scss';
+
+body {
+  height: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  height: 100%;
+  text-rendering: optimizeLegibility;
+  word-break: break-word;
+  color: #333;
+  background-color: #f4f5f5;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica "Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+}
+
+#app {
+  min-height: 100vh;
+}
+a {
+  text-decoration: none;
+  color: $navcolor;
+}
+
+#nprogress .bar {
+  height: 1px!important;;
+  background: $primary !important; //自定义颜色
+}

@@ -1,0 +1,131 @@
+/* 
+  Mixins
+*/
+$font-sizes: 14, 15, 16, 18, 20, 22;
+$margin-top: 20, 30, 40, 80, 126;
+
+@each $font-size in $font-sizes {
+  .fs-#{$font-size} {
+    font-size: #{$font-size / 12}rem;
+  }
+}
+@each $margin-top in $margin-top {
+  .mg-top-#{$margin-top} {
+    margin-top: #{$margin-top}px;
+    @media only screen and (max-width: 768px) { 
+      margin-top: #{$margin-top - 10}px;
+    }
+  }
+}
+
+
+/* 清除浮动 */
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin hoverState($top:-3px) {
+  transition: all .2s linear;
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    border-radius: 2px;
+    overflow: hidden;
+    background-color: #fff;
+    transition: all .2s linear;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.15);
+  }
+  &:hover {
+    transform: translateY($top);
+  }
+  &:hover::before {
+    box-shadow: 0px 7px 15px rgba(0,0,0,.1);
+  }
+}
+
+/* 目录小圆点 */
+@mixin catalogRound($left, $size) {
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: $left;
+    margin-top: -2px;
+    width: $size;
+    height: $size;
+    background-color: currentColor;
+    border-radius: 50%;
+  }
+}
+
+/* 文字左边小原点 */
+@mixin textRound($color: #b2bac2) {
+  &::before {
+    content: "·";
+    color: $color;
+    padding: 0 4px;
+  }
+}
+/* 文字右边边小原点 */
+@mixin textRoundRight($color: #b2bac2) {
+  &::after {
+    content: "·";
+    color: $color;
+    padding:0 4px;
+  }
+}
+
+/* 文字分割线 */
+@mixin splitLine($right: 5px) {
+  &:after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: $right;
+    height: 100%;
+    background-color: hsla(0,0%,59.2%,.2)
+  }
+}
+
+/* 水平对齐 */
+@mixin flexcenter($jc: center, $ai: center) {
+  display: flex;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+/* 垂直对齐 */
+@mixin flexcolumn($jc:space-between, $ai: none) {
+  display: flex;
+  flex-direction: column;
+  justify-content: $jc;
+  align-items: $ai;
+}
+
+/* 超出不换行 */
+@mixin nowrap() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 超出两行不换行 */
+@mixin twoLines($clamp: 2) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $clamp;//控制行数
+  overflow: hidden;
+}
+
+
