@@ -1,7 +1,7 @@
 {
     "apps": {
         "name": "blog",
-        "script": "./app.js",
+        "script": "./service.js",
         "watch": true,
         "ignore_watch": [
             "node_modules",

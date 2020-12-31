@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const http = require('http')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
@@ -20,9 +19,7 @@ if (env === 'dev') {
 } else {  // 线上环境，写入文件
   const logFileName = path.join(__dirname, 'logs', 'access.log')
   const logStream = fs.createWriteStream(logFileName, { flags: 'a' })
-  app.use(morgan('combined', {
-    stream: logStream
-  }))
+  app.use(morgan('combined', { stream: logStream }))
 }
 app.use(KoaStatic(
   path.join(__dirname, './dist')
@@ -73,44 +70,4 @@ app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
 });
 
-var debug = require('debug')('demo:server');
-
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '8000');
-let host = '127.0.0.1'
-
-
-var server = http.createServer(app.callback())
-
-server.listen(port, host, function () {
-  console.log(`打开浏览器访问：http://${host}:${port}`)
-});
-server.on('listening', onListening)
-
-/**
- * Normalize a port into a number, string, or false.
- */
-function normalizePort (val) {
-  var port = parseInt(val, 10);
-  if (isNaN(port)) {
-    return val;
-  }
-  if (port >= 0) {
-    return port;
-  }
-  return false;
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-function onListening () {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
+module.exports = app

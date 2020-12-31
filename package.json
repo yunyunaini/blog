@@ -5,7 +5,7 @@
   "scripts": {
     "client": "npm run start --prefix client",
     "client-build": "npm run build --prefix client",
-    "server": "cross-env NODE_ENV=dev nodemon app.js",
+    "server": "cross-env NODE_ENV=dev nodemon service.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "prd": "cross-env NODE_ENV=production pm2 start pm2.json",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -38,6 +38,7 @@
     "xss": "^1.0.6"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "koa-jwt": "^4.0.0",
     "koa-morgan": "^1.0.1",
     "koa-router": "^7.4.0",
