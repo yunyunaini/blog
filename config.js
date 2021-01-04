@@ -1,13 +1,12 @@
-
 const RPCClient = require('@alicloud/pop-core').RPCClient
-const env = process.env.NODE_ENV  // 环境参数
-
 /**
- * redis配置
+ * redis配置-jimdb配置
  */
 exports.REDIS_CONF = {
-  host: 'localhost',
-  port: 6379,
+  name: 'node-jimdb',
+  host: "ap2.jd.local",
+  port: " 5360",
+  password: 'jim://2909971244262251579/11689'
 }
 
 /**

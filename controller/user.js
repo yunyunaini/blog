@@ -31,9 +31,8 @@ exports.getUserByAuthor = async (author) => {
 // 登陆
 exports.login = async ctx => {
   let { username, password } = ctx.request.body
-  password = genPassword(password)
-  const data = await userModel.login(username, password)
-  if (data) {
+  const data = await userModel.login(username, genPassword(password))
+  if (data.length >= 1) {
     ctx.session.username = username
     ctx.session.author = data[0].author
     ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '登录成功' })

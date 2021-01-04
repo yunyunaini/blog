@@ -12,6 +12,18 @@ const KoaStatic = require('koa-static');
 const fs = require('fs')
 const app = new Koa()
 const router = require('./router')
+const { REDIS_CONF } = require('./config')
+const Jimdb = require('@jd/jmfe-node-jimdb')
+
+// 京东链接jimdb,参考文档http://npm.m.jd.com/package/@jd/jmfe-node-jimdb#new_JimClient_new
+var jimClient = new Jimdb(REDIS_CONF).getClient().on('error', function (err) {
+  console.log(err)
+})
+jimClient.keys('*').then(function (res) {
+  // console.log(res)
+}).catch(function (err) {
+  console.log(err)
+})
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
@@ -25,9 +37,6 @@ app.use(KoaStatic(
   path.join(__dirname, './dist')
 ))
 // app.use(require('koa-static')(path.join(__dirname) + '/dist/static'))
-
-const { REDIS_CONF } = require('./config')
-
 
 onerror(app,{json: '服务器出现异常'}) 
 
@@ -57,9 +66,7 @@ const CONFIG = {
     httpOnly: true, // cookie是否只有服务器端可以访问
     maxAge: 24 * 60 * 60 * 1000 // cookie的过期时间 maxAge in ms (default is 1 days) 24 * 60 * 60 * 1000
   },
-  store: redisStore({
-    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
-  }),
+  store: redisStore(REDIS_CONF),
 }
 app.use(session(CONFIG))
 

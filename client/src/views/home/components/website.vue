@@ -12,12 +12,12 @@
     <div class="website-item">
         📧 972774037@qq.com
     </div>
-    <div class="website-item">
+    <!-- <div class="website-item">
       <router-link class="hover" target="_blank" to="http://www.miibeian.gov.cn/">京ICP备19058301号-2</router-link>
-    </div>
+    </div> -->
     <div class="website-item">
       <span class="website-roundRight">©2019 起航 </span>
-      <span>Powered by aliyun</span>
+      <span>Powered by jdcloud</span>
     </div>
   </div>
 </template>
