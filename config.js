@@ -1,11 +1,11 @@
 const RPCClient = require('@alicloud/pop-core').RPCClient
+
 /**
- * redis配置-jimdb配置
+ * jd-jimdb配置
  */
 exports.REDIS_CONF = {
   name: 'node-jimdb',
   host: "ap2.jd.local",
-  port: " 5360",
   password: 'jim://2909971244262251579/11689'
 }
 
@@ -27,4 +27,5 @@ exports.client = new RPCClient({
   apiVersion: '2017-05-25'
 })
 
+// 加密密钥
 exports.secret = 'WJiol#23123_'
