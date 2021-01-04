@@ -14,8 +14,8 @@ exports.REDIS_CONF = {
  * github授权登陆
  */
 exports.OAUTH_GITHUB = {
-  clientID: '648d810630237ddc91d2',
-  clientSecret: '4e399b01a0bc041c188dcc5ce95e9c5c3ab1382c'
+  clientID: '55e4c0ed566c7683c287',
+  clientSecret: '63bf8f9e71f1dae121b4a76282729380814f7316'
 }
 
 /**

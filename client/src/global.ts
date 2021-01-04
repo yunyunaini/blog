@@ -2,6 +2,7 @@ export interface Qlist {
   id: number;
   name: string;
   path: string;
+  type?: string;
 }
 
 export interface Qtag {
@@ -23,9 +24,8 @@ export const INFORMATION_LIST: Qlist[] = [
 
 export const NAV_LIST: Qlist[]  = [
   { id: 0, name: "首页", path: "/" },
-  // { id: 1, name: "等你来答", path: "/questions" },
-  // { id: 2, name: '阅读', path: '/hot' },
-  { id: 3, name: "发现", path: "/share" },
+  { id: 2, name: "分享", path: "/share" },
+  { id: 3, name: "组件库", path: "https://wsmdyj.github.io/vcreact/", type: 'link' },
 ]
 
 export const TAG_LIST: Qtag[] = [
@@ -54,5 +54,5 @@ export const TAG_QUESTION: Qtag[] = [
 export const TAG_SHARE: Qtag[] = [
   { value: "视频推荐", label: "0" },
   { value: "必读书单", label: "1" },
-  { value: "开源推荐", label: "2" },
+  { value: "心得交流", label: "2" },
 ];

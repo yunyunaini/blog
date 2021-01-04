@@ -85,19 +85,17 @@ exports.sendSmsCodeToUser = async ctx => {
 
 // 注册用户
 exports.register = async ctx => {
-  const { username, password, code, author } = ctx.request.body
+  const { username, password, author } = ctx.request.body
   const result = await userModel.findUser(author)
   const checkphone = await userModel.findDataCountByName(username)
   if (result.length >= 1) {
     ctx.body = new ErrorModel('用户名重复了，请换个名称在试试！')
   } else if (checkphone[0].count >= 1) {
     ctx.body = new ErrorModel('手机号已被注册！')
-  } else if (code !== CODE) {
-    ctx.body = new ErrorModel('验证码不正确，请重新输入!')
   } else {
     ctx.session.username = username
     ctx.session.author = author
-    await userModel.addUser([genPassword(password), username, Date.now(), author])
+    await userModel.addUser([genPassword(password), username, Date.now(), author, 'https://img11.360buyimg.com/imagetools/jfs/t1/87659/21/10979/30969/5e25112fE55b3f5da/7241022379dbb0db.jpg'])
       .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
       .catch(new ErrorModel('注册失败'))
   } 

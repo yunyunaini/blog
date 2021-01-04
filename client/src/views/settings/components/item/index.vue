@@ -27,7 +27,6 @@ interface IsetItemTitle  {
 
 const defaultIsetItemTitle: IsetItemTitle[] = [
   { label:'头像', value: 'avatar' }, 
-  { label:'姓名', value: 'author' },
   { label:'职业', value: 'job' },
   { label:'公司', value: 'company' },
   { label:'个人介绍', value: 'autograph' }

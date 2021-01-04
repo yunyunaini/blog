@@ -2,9 +2,12 @@
   <div class="navbar-list">
     <div class="navbar-menu">
       <div class="navbar-menu__item" v-for="(item, index) in menu" :key="index">
-        <router-link active-class="active" :to="item.path">
+        <router-link active-class="active" :to="item.path" v-if="item.type !== 'link'">
           <span class="navbar-menu__item--text">{{ item.name }}</span>
         </router-link>
+        <a :href="item.path" target='_blank' rel='noreferrer noopener' v-if="item.type === 'link'">
+          <span class="navbar-menu__item--text">{{ item.name }}</span>
+        </a>
       </div>
     </div>
     <el-dropdown class="mobile-navbar-menu">
@@ -14,7 +17,7 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item class="navbar-menu__item" v-for="(item, index) in menu" :key="index">
-          <router-link active-class="active" :to="item.path">{{ item.name }}</router-link>
+          <router-link active-class="active" :to="item.path" v-if="item.type !== 'link'">{{ item.name }}</router-link>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>

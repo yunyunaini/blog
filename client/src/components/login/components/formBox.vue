@@ -13,7 +13,7 @@
       <el-form-item prop="username">
         <el-input type="text" v-model="formData.username" placeholder="请输入手机号"></el-input>
       </el-form-item>
-      <el-form-item v-if="type === 'register' && showCode === true" prop="code">
+      <!-- <el-form-item v-if="type === 'register' && showCode === true" prop="code">
         <el-input type="text" v-model="formData.code" placeholder="手机验证码">
           <template slot="append">
             <div @click="getCode" v-if="visible">获取验证码</div>
@@ -21,7 +21,7 @@
               <span class="reset-time">{{ time }}</span> s后重发</div>
             </template>
         </el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item prop="password">
         <el-input type="password" :autocomplete="type === 'login' ? 'on' : 'new-password'" placeholder="请输入密码(不少于3位)" v-model="formData.password" @keyup.enter.native="handleLogin" show-password></el-input>
       </el-form-item>
@@ -62,7 +62,7 @@ export default class extends Vue {
   private show:boolean = false // 点击登录后
   
   private time: number = 30
-  private formData = { username: '', password: '', author: '', code: '' }
+  private formData = { username: '', password: '', author: '' }
   private rules = {
     author: [{required: true, message: '请输入用户名', trigger: 'blur'}],
     username: [{ validator: this.validateUsername, trigger: 'blur'}],
