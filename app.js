@@ -19,11 +19,11 @@ const Jimdb = require('@jd/jmfe-node-jimdb')
 var jimClient = new Jimdb(REDIS_CONF).getClient().on('error', function (err) {
   console.log(err)
 })
-jimClient.keys('*').then(function (res) {
-  // console.log(res)
-}).catch(function (err) {
-  console.log(err)
-})
+// jimClient.keys('*').then(function (res) {
+//   // console.log(res)
+// }).catch(function (err) {
+//   console.log(err)
+// })
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
