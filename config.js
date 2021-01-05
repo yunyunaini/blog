@@ -3,11 +3,22 @@ const RPCClient = require('@alicloud/pop-core').RPCClient
 /**
  * jd-jimdb配置
  */
-exports.REDIS_CONF = {
-  name: 'node-jimdb',
-  host: "ap2.jd.local",
-  port: " 5360",
-  password: 'jim://2909971244262251579/11689'
+
+exports.getRedisConfig = () => {
+  if (process.env.NODE_ENV === 'dev') {
+    return {
+      name: 'RedisTest',
+      host: "127.0.0.1",
+      port: "6379",
+    }
+  } else {
+    return {
+      name: 'node-jimdb',
+      host: "ap2.jd.local",
+      port: " 5360",
+      password: 'jim://2909971244262251579/11689'
+    }
+  }
 }
 
 /**
