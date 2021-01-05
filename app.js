@@ -2,8 +2,8 @@ const Koa = require('koa')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
-const session = require('koa-generic-session')
-const redisStore = require('koa-redis')
+const session = require("koa-session2")
+const RedisStore = require("./utils/jimdb")
 const morgan = require('koa-morgan') 
 const cors = require('koa2-cors')
 const compress = require('koa-compress')
@@ -12,14 +12,13 @@ const KoaStatic = require('koa-static');
 const fs = require('fs')
 const app = new Koa()
 const router = require('./router')
-const { getRedisConfig } = require('./config')
-const Jimdb = require('@jd/jmfe-node-jimdb')
-const Ump = require('@jd/jmfe-node-ump') //  JimClient 操作都做 ump 监控
+
+// const Ump = require('@jd/jmfe-node-ump') //  JimClient 操作都做 ump 监控
 
 // 京东链接jimdb,参考文档http://npm.m.jd.com/package/@jd/jmfe-node-jimdb#new_JimClient_new
-var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
-  console.log(err)
-})
+// var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
+//   console.log(err)
+// })
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
@@ -51,20 +50,14 @@ app.use(json())
 // session配置
 app.keys = ['WJiol#23123_'] // 用来加密字符串
 const CONFIG = {
-  name: 'koa',   //cookie key (default is koa:sess)
-  saveUninitialized: true, // 无论有无cookie 默认给个标示为 connect.sid
-  signed: true,   // 签名默认true
-  rolling: true,  // 在每次请求时强行设置cookie，这将重置cookie过期时间（默认：false）
-  resave: false, // 在每次请求时强行设置cookie，这将重置cookie过期时间
-  renew: false,
-  cookie: {
-    path: '/',
-    httpOnly: true, // cookie是否只有服务器端可以访问
-    maxAge: 24 * 60 * 60 * 1000 // cookie的过期时间 maxAge in ms (default is 1 days) 24 * 60 * 60 * 1000
-  },
-  store: redisStore(getRedisConfig()),
+  store: new RedisStore(),
+  key: "SESSIONID",  // default "koa:sess"
 }
-app.use(session(CONFIG))
+
+app.use(session({
+  store: new RedisStore(),
+  key: "SESSIONID",  // default "koa:sess"
+}))
 
 app.use(router.routes(), router.allowedMethods()) // 路由配置
 
