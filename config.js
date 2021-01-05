@@ -5,7 +5,7 @@ const RPCClient = require('@alicloud/pop-core').RPCClient
  */
 exports.REDIS_CONF = {
   name: 'node-jimdb',
-  host: "ap-ht.jd.local",
+  host: "ap2.jd.local",
   port: " 5360",
   password: 'jim://2909971244262251579/11689'
 }

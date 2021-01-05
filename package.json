@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@jd/jmfe-node-jimdb": "^1.0.2",
+    "@jd/jmfe-node-ump": "^1.4.6",
     "dotenv": "^8.2.0",
     "koa-jwt": "^4.0.0",
     "koa-morgan": "^1.0.1",

@@ -14,9 +14,20 @@ const app = new Koa()
 const router = require('./router')
 const { REDIS_CONF } = require('./config')
 const Jimdb = require('@jd/jmfe-node-jimdb')
+const Ump = require('@jd/jmfe-node-ump') //  JimClient 操作都做 ump 监控
 
 // 京东链接jimdb,参考文档http://npm.m.jd.com/package/@jd/jmfe-node-jimdb#new_JimClient_new
 var jimClient = new Jimdb(REDIS_CONF).getClient().on('error', function (err) {
+  console.log(err)
+})
+jimClient.set('my.key', 'my.value').then(function (res) {
+  console.log(res)
+}).catch(function (err) {
+  console.log(err)
+})
+jimClient.get('my.key').then(function (res) {
+  console.log(res)
+}).catch(function (err) {
   console.log(err)
 })
 // jimClient.keys('*').then(function (res) {
@@ -66,7 +77,7 @@ const CONFIG = {
     httpOnly: true, // cookie是否只有服务器端可以访问
     maxAge: 24 * 60 * 60 * 1000 // cookie的过期时间 maxAge in ms (default is 1 days) 24 * 60 * 60 * 1000
   },
-  store: redisStore(REDIS_CONF),
+  // store: redisStore(REDIS_CONF),
 }
 app.use(session(CONFIG))
 
