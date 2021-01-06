@@ -75,5 +75,10 @@ export const getSignature = () =>
     method: "get",
   })
 
+export const getCarousel = () =>
+  request({
+    url: "api/blog/getCarousel",
+    method: "get",
+  })
 
 

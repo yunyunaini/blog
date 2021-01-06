@@ -48,6 +48,7 @@ export default class extends Vue {
     box-sizing: border-box;
     margin-left: 2rem;
     background-color: #fff;
+    overflow: hidden;
   }
 
   &-img {
@@ -55,6 +56,11 @@ export default class extends Vue {
     height: 6.7rem;
     border-radius: 3px;
     position: relative;
+    transition: all 0.6s;
+    overflow: hidden;
+    &:hover {
+      transform: scale(1.4);
+    }
   }
   
   .article-content {

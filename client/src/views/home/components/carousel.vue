@@ -1,14 +1,14 @@
 <template>
-  <van-swipe class="carousel" indicator-color='#fff' lazy-render width="100%">
+  <van-swipe class="carousel" indicator-color='#fff' :autoplay="3000" lazy-render width="100%">
     <van-swipeItem v-for="(item, index) in lists" :key="index">
       <router-link class="carousel-content" target="_blank" :to="{path: '/article', query: { articleId: item.article_id }}">
-        <el-image fit="contain" class="carousel-img" :src = item.img />
+        <el-image fit="contain" class="carousel-img" :src = item.articleImg />
         <div class="carousel-panel">
           <div class="carousel-panel__title">{{item.title}}</div>
           <div class="carousel-panel__info">
             <span class="carousel-name">{{item.author}}</span>
             <span class="split-line">—</span>
-            <span class="carousel-time">{{item.time}}</span>
+            <span class="carousel-time">{{formatDate(item.createtime)}}</span>
           </div>
         </div>
       </router-link>
@@ -19,31 +19,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../../api/types'
+import { getCarousel } from '../../../api/blog'
+import formatDate from '../../../utils/formatDate'
 @Component
 export default class extends Vue {
-  private lists: any = [
-    {
-      title: '一点感悟：当走完所有大厂的实习面试后',
-      author: '等风来',
-      time: '上周',
-      article_id: '18u4gt2bddvk00',
-      img: 'https://img11.360buyimg.com/imagetools/jfs/t1/116052/22/3948/28555/5eaa9c4cEf2248e4b/7c31d8a4fa41ec30.png'
-    },
-    {
-      title: '国庆七天乐，Node来敲门',
-      author: '等风来',
-      time: '1月前',
-      article_id: '4bneh4byxho000',
-      img: 'https://img12.360buyimg.com/imagetools/jfs/t1/116636/25/3917/51487/5eaa9c61E71f105e1/969fe82f034f650d.png'
-    },
-    {
-      title: '给你的网站添加第三方登录以及短信验证功能',
-      author: '等风来',
-      time: '1月前',
-      article_id: '1otgby3dsc5c00',
-      img: 'https://img11.360buyimg.com/imagetools/jfs/t1/116375/32/3931/166684/5eaa9c6eEde6cb991/a562315f39e599ce.png'
-    }
-  ]
+  private lists: any = []
+  private async created() {
+    getCarousel().then(res => {
+      this.lists = res.data
+    })
+  }
 }
 </script>
 
