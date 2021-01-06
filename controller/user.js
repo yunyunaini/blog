@@ -149,7 +149,6 @@ const fetchGitHubUser = async (accessToken) => {
 }
 
 exports.logout = async ctx => {
-  let { author } = ctx.request.body
   ctx.session = null
   ctx.body = new SuccessModel('退出登陆')
 }

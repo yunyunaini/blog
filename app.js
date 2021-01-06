@@ -2,8 +2,7 @@ const Koa = require('koa')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
-const session = require("koa-session2")
-const RedisStore = require("./utils/jimdb")
+const session = require("koa-session")
 const morgan = require('koa-morgan') 
 const cors = require('koa2-cors')
 const compress = require('koa-compress')
@@ -12,26 +11,6 @@ const KoaStatic = require('koa-static');
 const fs = require('fs')
 const app = new Koa()
 const router = require('./router')
-
-const Jimdb = require('@jd/jmfe-node-jimdb')
-const { getRedisConfig } = require('./config')
-
-// const Ump = require('@jd/jmfe-node-ump') //  JimClient 操作都做 ump 监控
-
-// 京东链接jimdb,参考文档http://npm.m.jd.com/package/@jd/jmfe-node-jimdb#new_JimClient_new
-var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
-  console.log(err)
-})
-jimClient.set('my.key', 'my.value').then(function (res) {
-  console.log(res)
-}).catch(function (err) {
-  console.log(err)
-})
-jimClient.get('my.key').then(function (res) {
-  console.log(res)
-}).catch(function (err) {
-  console.log(err)
-})
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
@@ -44,7 +23,6 @@ if (env === 'dev') {
 app.use(KoaStatic(
   path.join(__dirname, './dist')
 ))
-// app.use(require('koa-static')(path.join(__dirname) + '/dist/static'))
 
 onerror(app,{json: '服务器出现异常'}) 
 
@@ -63,7 +41,6 @@ app.use(json())
 // session配置
 app.keys = ['WJiol#23123_'] // 用来加密字符串
 const CONFIG = {
-  // store: new RedisStore(),
   key: "SESSIONID",
   rolling: true,
   saveUninitialized: true,
@@ -72,7 +49,7 @@ const CONFIG = {
   httpOnly: true,
 }
 
-app.use(session(CONFIG))
+app.use(session(CONFIG, app))
 
 app.use(router.routes(), router.allowedMethods()) // 路由配置
 
