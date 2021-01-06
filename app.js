@@ -22,7 +22,12 @@ const { getRedisConfig } = require('./config')
 var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
   console.log(err)
 })
-jimClient.keys('*').then(function (res) {
+jimClient.set('my.key', 'my.value').then(function (res) {
+  console.log(res)
+}).catch(function (err) {
+  console.log(err)
+})
+jimClient.get('my.key').then(function (res) {
   console.log(res)
 }).catch(function (err) {
   console.log(err)
@@ -58,7 +63,7 @@ app.use(json())
 // session配置
 app.keys = ['WJiol#23123_'] // 用来加密字符串
 const CONFIG = {
-  store: new RedisStore(),
+  // store: new RedisStore(),
   key: "SESSIONID",
   rolling: true,
   saveUninitialized: true,
