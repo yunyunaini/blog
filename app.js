@@ -13,12 +13,20 @@ const fs = require('fs')
 const app = new Koa()
 const router = require('./router')
 
+const Jimdb = require('@jd/jmfe-node-jimdb')
+const { getRedisConfig } = require('./config')
+
 // const Ump = require('@jd/jmfe-node-ump') //  JimClient 操作都做 ump 监控
 
 // 京东链接jimdb,参考文档http://npm.m.jd.com/package/@jd/jmfe-node-jimdb#new_JimClient_new
-// var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
-//   console.log(err)
-// })
+var jimClient = new Jimdb(getRedisConfig()).getClient().on('error', function (err) {
+  console.log(err)
+})
+jimClient.keys('*').then(function (res) {
+  console.log(res)
+}).catch(function (err) {
+  console.log(err)
+})
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
