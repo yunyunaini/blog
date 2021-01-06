@@ -8,8 +8,15 @@ exports.getShareList = async ctx => {
 }
 
 exports.addShareList = async ctx => {
-  const { title, describe, origin, location, imgUrl, type } = ctx.request.body
-  await userModel.addShareList([title, describe, origin, location, imgUrl, type])
+  const { title, content, origin, location, imgUrl, type } = ctx.request.body
+  await userModel.addShareList([title, content, origin, location, imgUrl, type])
+    .then(() => ctx.body = new SuccessModel())
+    .catch(ctx.body = new ErrorModel())
+}
+
+exports.delShareList = async ctx => {
+  const { id } = ctx.request.body
+  await userModel.delShareList(id)
     .then(() => ctx.body = new SuccessModel())
     .catch(ctx.body = new ErrorModel())
 }

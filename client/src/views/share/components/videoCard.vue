@@ -5,7 +5,7 @@
     </div>
     <div class="share-content">
       <div class="share-title">{{ list.title }}</div>
-      <div class="share-desc">{{ list.describe }}</div>
+      <div class="share-desc">{{ list.content }}</div>
       <div class="share-location">
         <div class="share-origin">
           <i class="el-icon-location-outline"></i>

@@ -41,5 +41,6 @@ router.get('/actions/search', actionsControl.getSearchResult)
 
 router.get('/share/list', shareControl.getShareList)
 router.post('/share/addList', shareControl.addShareList)
+router.post('/share/delList', shareControl.delShareList)
 
 module.exports = router

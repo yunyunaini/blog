@@ -7,7 +7,7 @@
     </div>
     <div class="book-content">
       <div class="book-name">{{book.title}}</div>
-      <div class="book-introduction">{{book.describe}}</div>
+      <div class="book-introduction">{{book.content}}</div>
       <div class="book-rate">
         <span class="rate-label">推荐指数</span>
         <el-rate v-model= book.rate disabled text-color="#ff9900" score-template="{value}" />
