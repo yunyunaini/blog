@@ -27,6 +27,8 @@ router.get('/blog/detail', blogControl.getBlogDetail)
 router.post('/blog/new', blogControl.createBlog)
 router.post('/blog/update', blogControl.updateBlog)
 router.post('/blog/delete', blogControl.deleteBlog)
+router.post('/blog/select', blogControl.selectBlog)
+router.get('/blog/getCarousel', blogControl.getCarousel)
 
 router.post('/actions/like', actionsControl.addLike)
 router.post('/actions/removelike', actionsControl.removeLike)
@@ -38,5 +40,6 @@ router.get('/actions/followList', actionsControl.getFollowList)
 router.get('/actions/search', actionsControl.getSearchResult)
 
 router.get('/share/list', shareControl.getShareList)
+router.post('/share/addList', shareControl.addShareList)
 
 module.exports = router

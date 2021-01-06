@@ -69,3 +69,20 @@ exports.deleteBlog = async ctx => {
     .then(() => {ctx.body = new SuccessModel('文章删除成功')})
     .catch(ctx.body = new ErrorModel('文章删除失败'))
 }
+
+// 文章设置为首页轮播
+exports.selectBlog = async ctx => {
+  let { id } = ctx.request.body
+  await userModel.selectBlog(id, 'carousel')
+    .then(() => { ctx.body = new SuccessModel() })
+    .catch(ctx.body = new ErrorModel())
+}
+
+exports.getCarousel = async ctx => {
+  try {
+    const result = await userModel.getCarousel()
+    ctx.body = new SuccessModel(result)
+  } catch (error) {
+    ctx.body = new ErrorModel('获取轮播图失败')
+  }
+}

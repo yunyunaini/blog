@@ -94,7 +94,7 @@ exports.register = async ctx => {
   } else {
     ctx.session.username = username
     ctx.session.author = author
-    await userModel.addUser([genPassword(password), username, Date.now(), author, 'https://img11.360buyimg.com/imagetools/jfs/t1/87659/21/10979/30969/5e25112fE55b3f5da/7241022379dbb0db.jpg'])
+    await userModel.addUser([genPassword(password), username, Date.now(), author, ''])
       .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
       .catch(new ErrorModel('注册失败'))
   } 

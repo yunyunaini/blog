@@ -10,17 +10,18 @@ class RedisStore extends Store {
     })
   }
   async get(sid, ctx) {
-    let data = await this.redis.get(`SESSION:${sid}`);
-    return JSON.parse(data);
+    let data = await this.redis.get(`SESSION:${sid}`)
+    return JSON.parse(data)
   }
-  async set (session, { sid = this.getID(24), maxAge = 1000000 } = {}, ctx) {
+  async set (session, { sid = this.getID(24), maxAge = 24 * 60 * 60 * 1000 } = {}, ctx) {
     try {
-      await this.redis.set(`SESSION:${sid}`, JSON.stringify(session), 'EX', maxAge / 1000);
+      await this.redis.set(`SESSION:${sid}`, JSON.stringify(session), 'EX', maxAge)
     } catch (e) { }
-    return sid;
+    return sid
   }
   async destroy(sid, ctx) {
-    return await this.redis.del(`SESSION:${sid}`);
+    return await this.redis.del(`SESSION:${sid}`)
   }
 }
+
 module.exports = RedisStore

@@ -51,13 +51,15 @@ app.use(json())
 app.keys = ['WJiol#23123_'] // 用来加密字符串
 const CONFIG = {
   store: new RedisStore(),
-  key: "SESSIONID",  // default "koa:sess"
+  key: "SESSIONID",
+  rolling: true,
+  saveUninitialized: true,
+  resave: false,
+  maxAge: 24 * 60 * 60 * 1000,
+  httpOnly: true,
 }
 
-app.use(session({
-  store: new RedisStore(),
-  key: "SESSIONID",  // default "koa:sess"
-}))
+app.use(session(CONFIG))
 
 app.use(router.routes(), router.allowedMethods()) // 路由配置
 
