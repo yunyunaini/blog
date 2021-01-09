@@ -33,7 +33,9 @@ exports.getBlogListByAuthor = async ctx => {
 // 文章详情
 exports.getBlogDetail = async ctx => {
   let id = ctx.query.id
-  const article = await userModel.findBlogById(id)
+  let author = ctx.session ? ctx.session.author  : ''
+  const articles = await userModel.findBlogById(id)
+  const article = await checkArticleisLike(author, articles)
   const userInfo = await getUserByAuthor(article[0].author)
   ctx.body = new SuccessModel({
     article: article[0],

@@ -18,7 +18,6 @@ import { IArticleData  } from '../../api/types'
 import Header from '@/components/header/index.vue'
 import articleCard from '@/components/article/index.vue'
 import { getArticles } from '../../api/blog'
-import { fommentArticle } from '../../utils/formateArticle'
 
 @Component({
   name:'excellent',
@@ -42,7 +41,7 @@ export default class extends Vue {
     const { data } = await getArticles()
     if (data.length > 0) {
       this.loading = false
-      this.list = this.list.concat(fommentArticle(data))
+      this.list = this.list.concat(data)
     } else {
       this.isEmpty = true
     }

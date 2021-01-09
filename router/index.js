@@ -38,6 +38,7 @@ router.post('/actions/following', actionsControl.getFollowing)
 router.post('/actions/unfollow', actionsControl.removeFollow)
 router.get('/actions/followList', actionsControl.getFollowList)
 router.get('/actions/search', actionsControl.getSearchResult)
+router.post('/actions/message', actionsControl.addMessage)
 
 router.get('/share/list', shareControl.getShareList)
 router.post('/share/addList', shareControl.addShareList)

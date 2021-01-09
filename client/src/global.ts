@@ -54,5 +54,5 @@ export const TAG_QUESTION: Qtag[] = [
 export const TAG_SHARE: Qtag[] = [
   { value: "视频推荐", label: "0" },
   { value: "必读书单", label: "1" },
-  { value: "心得交流", label: "2" },
+  { value: "前端圈子", label: "2" },
 ];

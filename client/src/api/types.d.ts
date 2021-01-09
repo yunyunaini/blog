@@ -32,7 +32,7 @@ export interface IArticleData {
   likeCount: number
   comments: number
   reviews: number
-  islike?: boolean
+  islike: boolean
   markdown: string
   articleTag?: string[]
 }

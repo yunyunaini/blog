@@ -45,7 +45,7 @@ export default class extends Vue {
     var r = confirm("确定退出吗？每一片贫瘠的土地都需要坚定的挖掘者")
     if (r === true){
       UserModule.ResetToken({author: UserModule.author})
-      window.location.reload(true);
+      window.location.reload(false)
     }
   }
 }

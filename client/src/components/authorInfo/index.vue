@@ -37,15 +37,14 @@ export default class extends Vue {
     padding: 0.2rem 0;
     .author-name {
       display: inline-block;
-      font-size: 1.3rem;
+      font-size: 16px;
       font-weight: 700;
       color: $text-color;
       &--comment {
         color: $text-color;
         flex: 1 1 auto;
         color: #333;
-        font-size: 1.083rem;
-        font-weight: 400;
+        font-size: 14px;
         .author-job {
           color: #8a9aa9;
           margin-left: 4px;

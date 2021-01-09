@@ -62,15 +62,14 @@ export default class extends Vue {
     }
     .share-title {
       @include nowrap();
-      font-size: 1.142857rem /* 16/14 */;
+      font-size: 16px;
       color: #07111b;
       font-weight: 700;
       cursor: pointer;
     }
     .share-desc {
-      color: #333;
-      font-size: 12px;
-      line-height: 1.3;
+      line-height: 1.5;
+      color: #666;
       cursor: default;
       @include twoLines();
     }

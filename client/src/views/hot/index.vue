@@ -21,7 +21,6 @@ import Header from '@/components/header/index.vue'
 import reader from './components/reader.vue'
 import { getArticles } from '../../api/blog'
 import { IArticleData, Itag } from '../../api/types'
-import { fommentArticle } from '../../utils/formateArticle'
 import card from './components/card.vue'
 import articleLoading from '../../components/loading/articleLoading.vue'
 
@@ -38,7 +37,7 @@ export default class extends Vue {
 
   private async created() {
     const { data } = await getArticles()
-    this.articles = fommentArticle(data)
+    this.articles = data
   }
  
 }

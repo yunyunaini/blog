@@ -39,7 +39,6 @@ import { IArticleData, IFollow } from '../../api/types'
 import articleCard from '@/components/article/index.vue'
 import { getSearch } from '../../api/blog'
 import { Qtag } from '../../global'
-import { fommentArticle } from '../../utils/formateArticle'
 import empty from '@/components/emptyBox/index.vue'
 
 @Component({
@@ -99,7 +98,7 @@ export default class extends Vue {
 
   private async fetchData(keyword: string | (string | null)[]) {
     const { data } = await getSearch({keyword: keyword})
-    this.articleList = fommentArticle(data.articles)
+    this.articleList = data.articles
     this.lists = data.users
     this.changeColor(keyword, data.articles)
     this.changeColor(keyword, data.users)

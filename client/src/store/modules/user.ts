@@ -10,7 +10,6 @@ var inFifteenMinutes= new Date(new Date().getTime()+ 24 * 60 * 60 * 1000)
 const setToken = (token: string) => Cookies.set(tokenKey, token, {expires: inFifteenMinutes})
 const removeToken = () => Cookies.remove(tokenKey)
 
-
 export interface IUserState {
   loggedType: string;
   islogin: boolean;
@@ -21,6 +20,7 @@ export interface IUserState {
   job: string;
   author: string;
   username: string;
+  userInfo: object;
 }
 export interface IRegister {
   username: string
@@ -40,6 +40,7 @@ class User extends VuexModule implements IUserState {
   public job = "";
   public author = "";
   public username = "";
+  public userInfo = {};
 
   @Mutation
   private SET_LoggedType(loggedType: string) {
@@ -64,6 +65,10 @@ class User extends VuexModule implements IUserState {
   @Mutation
   private SET_AVATAR(avatar: string) {
     this.avatar = avatar;
+  }
+  @Mutation
+  private SET_UserInfo(userInfo: object) {
+    this.userInfo = userInfo;
   }
   @Mutation
   private SET_COMPANY(company: string) {
@@ -91,6 +96,7 @@ class User extends VuexModule implements IUserState {
       setToken(data.accessToken);
       this.SET_TOKEN(data.accessToken);
       this.SET_Login(false);
+      return data
     } catch (error) {
       return error;
     }
@@ -142,6 +148,7 @@ class User extends VuexModule implements IUserState {
       throw Error("Verification failed, please Login again.");
     }
     const { autograph, avatar, company, job, author, username } = data;
+    this.SET_UserInfo(data);
     this.SET_AUTOGRAPH(autograph);
     this.SET_AVATAR(avatar);
     this.SET_COMPANY(company);

@@ -1,14 +1,9 @@
 <template>
   <div class="form">
-    <div class="panfish" v-if="type === 'login'">
-      <img style="width: 120px; height: 95px;" src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png">
-      <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/greeting.1415c1c.png" class="normal" alt=""> -->
-      <!-- <img src="https://b-gold-cdn.xitu.io/v3/static/img/blindfold.58ce423.png" class="normal" alt=""> -->
-    </div>
     <div class="form-title">{{ type == 'login' ? '登录' : '注册' }}</div>
     <el-form :rules="rules" autocomplete="on" ref="Form" :model="formData" class="form-content">
       <el-form-item v-if="type === 'register'" prop="author">
-        <el-input type="text" :autocomplete="type === 'login' ? 'on' : 'new-password'" v-model="formData.author" placeholder="请输入用户名"></el-input>
+        <el-input type="text" :autocomplete="type === 'login' ? 'on' : 'new-password'" v-model="formData.author" placeholder="请输入您的笔名"></el-input>
       </el-form-item>
       <el-form-item prop="username">
         <el-input type="text" v-model="formData.username" placeholder="请输入手机号"></el-input>

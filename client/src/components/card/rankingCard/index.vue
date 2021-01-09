@@ -1,16 +1,21 @@
 <template>
   <div class="card">
-    <cardModule title="🎖️作者榜">
+    <cardModule>
+      <template v-slot:header>
+        <i class="iconfont">&#xe60f;</i>
+        推荐作者
+      </template>
       <div class="center">
         <div class="ranking" v-for="(user, index) in users" :key="index">
           <authorInfo type='comment' :size='40' :userInfo= user >
-            <div slot="content" class="author-desc">{{user.autograph || '人生格言'}}</div>
+            <div slot="content" class="author-desc">{{user.autograph || '@个人描述'}}</div>
           </authorInfo>
         </div>
       </div>
-     
       <div class="card-bottom">
-        <router-link class="link" target="_blank" to="/users">完整榜单 ></router-link>
+        <router-link class="link" target="_blank" to="/users">更多作者
+        <i class="iconfont">&#xe62e;</i>
+        </router-link>
       </div>
     </cardModule>
   </div>
@@ -39,9 +44,6 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .card {
   cursor: pointer;
-  .center {
-    height: 201px;
-  }
   .ranking {
     padding: 12px 15px;
     &:hover {
@@ -51,7 +53,7 @@ export default class extends Vue {
       width: 130px;
       font-size: 10px;
       color: $fontcolor;
-      margin-top: -15px;
+      margin-top: -18px;
       @include nowrap();
     }
   }
@@ -63,7 +65,11 @@ export default class extends Vue {
     border-top: 1px solid $border-color;
     .link {
       color: $primary;
+      font-size: 14px;
     }
   }
+}
+.iconfont {
+  color: $primary;
 }
 </style>

@@ -2,7 +2,7 @@ const { exec } = require('../lib/db')
 const { genPassword } = require('../utils/cryp')
 const userModel = require('../lib/mysql')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { secret, client, OAUTH_GITHUB } = require('../config')
+const { secret, client, getOauthGithub } = require('../config')
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
 const CODE = Math.random().toString().slice(-6)
@@ -19,13 +19,9 @@ const generateActon = (username) => {
 exports.getUserByAuthor = async (author) => {
   const total = await userModel.findBlogbyUser(author)
   const userInfo = await userModel.findUser(author)
-  let x = 0, y = 0, z = 0;
-  total.forEach(item => {
-    x += item.reviews
-    y += item.comments
-    z += item.likeCount
-  })
-  return Object.assign(userInfo[0], { reviews: x, comments: y, likes: z })
+  const follow_author = await userModel.findCountFollowingList(author)
+  const following_author = await userModel.findCountFollowList(author)
+  return Object.assign(userInfo[0], total[0], follow_author[0], following_author[0])
 }
 
 // 登陆
@@ -50,7 +46,9 @@ exports.getUserInfo = async ctx => {
 
 // 获取用户列表
 exports.getUserList = async ctx => {
-  const users = await userModel.findUserByPage(1)
+  const top = ctx.query.top || 10
+  const page = ctx.query.page || 1
+  const users = await userModel.findUserByPage(top, page)
   ctx.body = new SuccessModel(users)
 }
 
@@ -94,7 +92,7 @@ exports.register = async ctx => {
   } else {
     ctx.session.username = username
     ctx.session.author = author
-    await userModel.addUser([genPassword(password), username, Date.now(), author, ''])
+    await userModel.addUser([genPassword(password), username, Date.now(), author, 'https://notion.cx/wp-content/themes/b2/Assets/fontend/images/default-avatar.png'])
       .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
       .catch(new ErrorModel('注册失败'))
   } 
@@ -122,11 +120,12 @@ exports.oauthLogin = async ctx => {
 
 // github授权登陆获取access_token
 const fetchGitHubAccessToken = async (code) => {
+  const result = getOauthGithub()
   const tokenResponse = await axios({
     method: 'post',
     url: 'https://github.com/login/oauth/access_token?' +
-      `client_id=${OAUTH_GITHUB.clientID}&` +
-      `client_secret=${OAUTH_GITHUB.clientSecret}&` +
+      `client_id=${result.clientID}&` +
+      `client_secret=${result.clientSecret}&` +
       `code=${code}`,
     headers: {
       accept: 'application/json'
@@ -153,42 +152,3 @@ exports.logout = async ctx => {
   ctx.body = new SuccessModel('退出登陆')
 }
 
-exports.getList = async (top) => {
-  let sql = `select autograph, avatar, company, job, nickname, date from users;`
-  const userList = await exec(sql)
-  for (var i=0;i< userList.length;i++) {
-    let reviewsSql = `select reviews,comments,likeCount from blogs where author = '${userList[i].nickname}';`
-    let commentsSql = `select comments from blogs where author = '${userList[i].nickname}';`
-    let likesSql = `select likeCount from blogs where author = '${userList[i].nickname}';`
-    const _reviews = await exec(reviewsSql)
-    const _comments = await exec(commentsSql)
-    const _likes = await exec(likesSql)
-    var s = 0, sum = 0, t = 0;
-    _reviews.forEach(item => {
-      s += item.reviews
-    })
-    _comments.forEach(item => {
-      sum += item.comments
-    })
-    _likes.forEach(item => {
-      t += item.likeCount
-    })
-    userList[i].reviews = s
-    userList[i].comments = sum
-    userList[i].likes = t
-  }
-  userList.sort(compare("likes"))
-  if (top) {
-    return userList.slice(0, top)
-  } else {
-    return userList
-  }
-}
-
-function compare(p){ //这是比较函数
-  return function(m,n){
-      var a = m[p];
-      var b = n[p];
-      return b - a; //升序
-  }
-}

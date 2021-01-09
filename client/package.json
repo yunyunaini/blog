@@ -35,6 +35,7 @@
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-typescript": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
+    "postcss-pxtorem": "^5.1.1",
     "sass-loader": "^8.0.0",
     "stylus-resources-loader": "0.0.4",
     "typescript": "~3.5.3",

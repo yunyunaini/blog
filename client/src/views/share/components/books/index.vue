@@ -8,10 +8,10 @@
     <div class="book-content">
       <div class="book-name">{{book.title}}</div>
       <div class="book-introduction">{{book.content}}</div>
-      <div class="book-rate">
+      <!-- <div class="book-rate">
         <span class="rate-label">推荐指数</span>
         <el-rate v-model= book.rate disabled text-color="#ff9900" score-template="{value}" />
-      </div>
+      </div> -->
       <div :style="{'background': book.location ? '#5dcaad':'#c8c9cc'}" @click="checkBook(book.location)" class="share-check">{{book.location ? '免费试读' : '暂无资源'}}</div>
     </div>
   </div>
@@ -78,8 +78,8 @@ export default class extends Vue {
     }
     .book-introduction {
       margin: 15px 0;
-      font-size: 12px;
-      line-height: 16px;
+      line-height: 1.5;
+      color: #666;
       @include twoLines($clamp: 3)
     }
     .book-rate {

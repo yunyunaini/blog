@@ -29,12 +29,17 @@ export default class extends Vue {
   }
 
   private getLike() {
-    this.token ? this.handleLike(this.article) : UserModule.handleIslogin(true)
+    if (this.token) {
+      this.handleLike(this.article)
+    } else {
+      UserModule.handleIslogin(true)
+      UserModule.handleLoggedType('login')
+    }
   }
-
+  
   @Watch('article', {immediate: true})
   private watchArticle(val:IArticleData) {
-    this.active = this.likeArticlId.indexOf(val.article_id) != -1
+    this.active = val.islike || false
     this.likes = val.likeCount
     if (this.active) {
       (this.$refs.likeContent as HTMLFormElement).classList.add('active')

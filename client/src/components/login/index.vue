@@ -76,9 +76,12 @@ export default class extends Vue {
   private async handleLogin(event: IRegister) {
     this.visibal = true
     if (this.activeIndex == 'login') {
+      this.visibal = false
       const data = await UserModule.Login({username: event.username, password: event.password})
-      await UserModule.GetUserInfo()
-      await window.location.reload(false)
+      if (data && data.errno !== -1){
+        await UserModule.GetUserInfo()
+        window.location.reload(false)
+      }
     } else {
       const data = await UserModule.Register(event)
       this.visibal = false
@@ -89,7 +92,6 @@ export default class extends Vue {
           type: 'success'
         })
         await UserModule.GetUserInfo()
-        await window.location.reload(false)
       }
     }
   }

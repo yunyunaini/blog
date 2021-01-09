@@ -3,7 +3,10 @@
     class="follow-button" 
     :class="!show ? `unfollow-button` : `following-button`" 
     @click.stop="follow(author)">
-    {{ show ? '已关注' : '关注' }}
+    <span v-if= show >已关注</span>
+    <span v-else>
+    <i class="iconfont">&#xe602;</i>关注
+    </span>
   </div>
 </template>
 
@@ -68,6 +71,10 @@ export default class extends Vue {
   border: 1px solid rgba(55,199,1,.6);
   border-radius: 2px;
   cursor: pointer;
+}
+.iconfont {
+  color: #37c701;
+  margin-right: 4px;
 }
 .unfollow-button {
   color: #6cbd45;

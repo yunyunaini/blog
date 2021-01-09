@@ -18,6 +18,11 @@
           <bookPane />
         </div>
       </div>
+      <div v-show="activeIndex == 2">
+        <div class='share-empty'>
+          <img class='share-empty__img' src='../../assets/img/empty.png' />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +34,7 @@ import tabs from '@/components/tabs/index.vue'
 import { IVideo, Itag} from '../../api/types'
 import Sticky from '@/components/Sticky/index.vue'
 import videoPane from './components/video/index.vue'
+import sharePane from './components/book/index.vue'
 import bookPane from './components/books/index.vue'
 import { TAG_SHARE, Qtag } from '../../global'
 
@@ -39,7 +45,8 @@ import { TAG_SHARE, Qtag } from '../../global'
     videoPane,
     bookPane,
     Sticky,
-    tabs
+    tabs,
+    sharePane
   }
 })
 
@@ -58,6 +65,17 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.share-empty {
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  position: absolute;
+  left: 25%;
+  &__img {
+    width: 60%;
+  }
+}
 .tabs-placeholder {
   display: inline-block;
   height: 100%;

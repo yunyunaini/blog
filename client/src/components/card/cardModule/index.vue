@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <div class="box-card" shadow="never">
-      <div slot="header" class="clearfix">
-        <span>{{ title }}</span>
+      <div class="clearfix">
+        <slot name="header"></slot>
       </div>
       <slot></slot>
     </div>
@@ -27,5 +27,10 @@ export default class extends Vue {
     padding: 12px 15px;
     border-bottom: 1px solid $border-color;
   }
+}
+.iconfont {
+  font-size: 16px;
+  color: rgb(0, 127, 255);
+  padding-right: 5px;
 }
 </style>

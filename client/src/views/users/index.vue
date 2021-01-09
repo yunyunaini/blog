@@ -1,16 +1,18 @@
 <template>
   <div class="container">
     <Header />
-    <div class="main mg-top-80">
-      <div class="section">
-        <div class="info-box" v-for="(user, index) in users" :key="index">
-          <authorInfo :userInfo= user >
-            <div slot="content" class="author-desc">
-              <div class="info-desc">{{user.job}} @{{user.company || '添加公司'}}</div>
-            </div>
-          </authorInfo>
-          <author-follow v-if="nickname !== user.nickname" :author = user.nickname ></author-follow>
-        </div>
+    <div class="main">
+      <div class="mg-top-80">
+        <van-list :finished-text="isEmpty ? '' : '没有更多内容了'" v-model="loading" :finished="noMore" class="section" @load="onLoad">
+          <div class="section-list" v-for="(user, index) in users" :key="index">
+            <authorInfo :userInfo= user >
+              <div slot="content" class="author-desc">
+                <div class="info-desc">{{user.job}} @{{user.company || '添加公司'}}</div>
+              </div>
+            </authorInfo>
+            <author-follow v-if="nickname !== user.nickname" :author = user.nickname ></author-follow>
+          </div>
+      </van-list>
       </div>
     </div>
   </div>
@@ -35,13 +37,38 @@ import { UserModule } from '../../store/modules/user'
 })
 export default class extends Vue {
   private users: IUserInfo[] = []
+  private page: number = 1
+  private loading: boolean = false
+  private noMore: boolean = false
+  private isEmpty: boolean = false
 
+  private async onLoad () {
+    this.page = this.page + 1
+    this.fetchData()
+  }
+  
   get nickname() {
     return UserModule.author
   }
+
+  private async fetchData() {
+    this.loading = true
+    await getuserList({page: this.page, top: 20}).then(data => {
+      if (data.data.length > 0) {
+        this.users = this.users.concat(data.data)
+        this.loading = false
+      } else {
+        this.isEmpty = true
+      }
+      if (data.data.length < 20) {
+        this.noMore = true
+        this.loading = false
+      }
+    })
+  }
+
   private async created() {
-    const { data } = await getuserList()
-    this.users = data
+    this.fetchData()
   }
 }
 </script>
@@ -49,7 +76,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .section {
   background: #fff;
-  .info-box {
+  .section-list {
     padding: 1.5rem 2rem;
     border-bottom: 1px solid $border-color;
     display: flex;

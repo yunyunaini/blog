@@ -1,5 +1,5 @@
 <template>
- <div :style="{position: fixed ? 'fixed' : ''}" class="sidebar-block">
+ <div v-if= catalog :style="{position: fixed ? 'fixed' : ''}" class="sidebar-block">
     <nav class="catalog">
       <div class="catalog-title">目录</div>
       <div class="catalog-body" v-html="catalog"></div>

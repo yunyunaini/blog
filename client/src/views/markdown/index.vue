@@ -6,7 +6,10 @@
         <el-popover width="290">
           <div style="padding:24px;font-size: 18px;font-weight: 700; color: hsla(218,9%,51%,.8);">
             <div class="title">添加封面大图
-              <span v-show="imgUrl" @click="imgUrl=''" style="float:right"><i class="el-icon-delete-solid"></i></span>
+              <span class="warning">(必填)</span>
+              <span v-show="imgUrl" @click="deleteImg" style="float:right">
+                <i class="el-icon-delete-solid"></i>
+              </span>
             </div>
             <div style="width: 240px;margin-top:20px; height: 96px;line-height:96px;text-align:center;font-size: 16px;color: rgba(51,51,51,.4);background-color: hsla(0,0%,87%,.6);border: none;cursor: pointer;" class="upload">
               <div v-if="imgUrl">
@@ -17,9 +20,9 @@
               </div>
             </div>
           </div>
-          <div slot="reference" class="toggle"><i class="el-icon-picture"></i></div>
+          <div slot="reference" class="toggle" :style="{color: showImg ? '#007fff': '#ddd'}"><i class="el-icon-picture"></i></div>
         </el-popover>
-        <articleType @submit='publish' />
+        <articleType :updateTags= updateTags @submit='publish' />
         <el-popover trigger="hover" width="150">
           <Dropdown />
           <el-avatar slot="reference" size="medium" :src= avatar />
@@ -60,8 +63,9 @@ export interface article {
   ellipsis: string
   markdown: string
   articleImg?: string
+  articleType?: string
+  articleTag?: string
 }
-
 
 @Component({
   name: 'Markdown',
@@ -73,11 +77,14 @@ export interface article {
   }
 })
 export default class  extends Vue {
+  private showImg: boolean = false
   private markdown:string = ''
   private title: string = ''
   private value:string = ''
   private html: string = ''
+  private updateTags: string = ''
   private imgUrl: string = ''
+  private articleType: string = ''
   private articleId!: string | (string | null)[]
   private height: number = document.documentElement.clientHeight - 68
 
@@ -87,6 +94,11 @@ export default class  extends Vue {
 
   private getValue(event: string) {
     // 实时编写的值
+  }
+
+  @Watch('imgUrl', {immediate: true})
+  private watchImgUrl(val: string) {
+    this.showImg = val ? true : false
   }
   
   @Watch('height', {immediate: true})
@@ -98,6 +110,10 @@ export default class  extends Vue {
     this.imgUrl = event
   }
 
+  private async deleteImg() {
+    this.imgUrl = ''
+  }
+
   private async created() {
     this.articleId = this.$route.query.articleId
     if (this.articleId) {
@@ -105,6 +121,8 @@ export default class  extends Vue {
       this.markdown = data.article.markdown
       this.title =  data.article.title
       this.imgUrl = data.article.articleImg
+      this.articleType = data.article.articleType
+      this.updateTags = data.article.articleTag
     }
   }
   mounted() {
@@ -114,13 +132,18 @@ export default class  extends Vue {
     }, 400,)
   }
  
-  private async publish(types: {articleType:string, articleTag:string[]}) {
+  private async publish(types: {articleTag:string[]}) {
+    if (this.imgUrl === '') {
+      this.$message({ message: '请先上传博客封面图片', type: 'error' })
+      return
+    }
     this.html = (this.$refs.markdownEditor as MarkdownEditor).getHtml()
     const result = html_decode(this.markdown)
     const _html = html_decode(this.html)
     
     let newArticle: article = {
       article_id: this.articleId,
+      articleType: this.articleType,
       title: this.title,
       ellipsis: _html.replace(/<[^>]+>/g, '').substring(0,100),
       content: _html,
@@ -140,6 +163,10 @@ export default class  extends Vue {
 </script>
 
 <style lang="scss">
+.warning {
+  color: #F56C6C;
+  font-size: 12px;
+}
 .markdown {
   .header {
     background: #fff;
@@ -154,7 +181,6 @@ export default class  extends Vue {
       @include flexcenter($jc: space-around);
       .toggle {
         font-size: 28px;
-        color: #ddd;
         margin-right: 25px;
         cursor: pointer;
       }

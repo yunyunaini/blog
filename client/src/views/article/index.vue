@@ -11,7 +11,7 @@
               <div slot="content">
                 <span class="article-time">{{article.createtime}} </span>
                 <span class="article-review">阅读 {{ article.reviews }} </span>
-                <router-link v-if="nickname== article.author.nickname" :to="{path: '/markdown', query:{articleId: article.article_id}}">
+                <router-link v-if="nickname== article.author.author" :to="{path: '/markdown', query:{articleId: article.article_id}}">
                   <span class="article-edit">编辑</span>
                 </router-link>
               </div>
@@ -72,6 +72,7 @@ const defaultArticle = {
   comments: 0,
   reviews: 0,
   markdown: '',
+  islike: false
 }
 
 @Component({
@@ -142,10 +143,12 @@ export default class  extends Vue {
 // 获取每个文章标题的距顶部的高度
   private async getTitleHeight() {
     let titlelist = Array.prototype.slice.call((this.$refs.article as Element).getElementsByClassName('toc-title'))
-    titlelist.forEach((item,index) => {
+    if (titlelist) {
+      titlelist.forEach((item,index) => {
       this.listHeight.push(item.offsetTop)
     })
     this.listHeight.push(2 * (titlelist[titlelist.length-1].offsetTop))
+    }
   }
   // 获取目录的所有ul、a标签
   private async getCataloglist() {

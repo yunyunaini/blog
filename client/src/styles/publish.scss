@@ -44,20 +44,18 @@
   }
 }
 .section-wrapper {
-  background: #fff;
   @include flexcolumn($jc:center, $ai: none);
   min-height: 148px;
 }
 
 // 首页文字标题样式
 .article-title {
-  font-size: 1.7rem;
+  font-size: 18px;
   font-weight: bold;
   color: $title-color;
   @include twoLines();
   &:hover {
     color: $primary;
-    // text-decoration: underline !important;
   }
   @media only screen and (max-width: 767px) { 
     font-size: 1.2rem;

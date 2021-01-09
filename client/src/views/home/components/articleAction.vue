@@ -9,18 +9,21 @@
       </div>
     </div>
     <div class="footer-action">
-      <span class="footer-action__item mobile-none">
-        <i class="iconfont">&#xe60d;</i>
-        <span>{{article.reviews}}</span>
+     <span class="footer-action__item">
+        <span>{{formatDate(article.createtime)}}</span>
       </span>
       <span class="footer-action__item">
-        <i class="iconfont">&#xe61c;</i>
+        <i class="iconfont">&#xe600;</i>
         <span>{{article.comments}}</span>
       </span>
       <span class="footer-action__item">
-        <i class="iconfont" v-if="!article.islike">&#xe61b;</i>
-        <i class="iconfont" v-else :style="{color: article.islike ? '#6cbd65' : '' }">&#xe60c;</i>
+        <i class="iconfont" v-if="!article.islike">&#xe67e;</i>
+        <i class="iconfont" v-else :style="{color: article.islike ? '#6cbd65' : '' }">&#xe67e;</i>
         <span :style="{color: article.islike ? '#6cbd65' : '' }">{{article.likeCount}}</span>
+      </span>
+       <span class="footer-action__item mobile-none">
+        <i class="iconfont">&#xe8c7;</i>
+        <span>{{article.reviews}}</span>
       </span>
     </div>
   </div>
@@ -29,6 +32,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../../api/types'
+import formatDate from '../../../utils/formatDate'
 
 @Component({
   components: {
@@ -59,6 +63,10 @@ export default class extends Vue {
     color: $primary;
   }
 }
+.el-avatar--small{
+  width: 20px;
+  height: 20px;
+}
 .footer-content {
   flex: 1;
   display: flex;
@@ -76,16 +84,22 @@ export default class extends Vue {
   }
 }
 .footer-action {
-  font-size: 1.083333rem /* 13/12 */;
-  color: $title-name-color;
+  font-size: 12px;
+  color: #bcbcbc;
   display: flex;
   justify-content: center;
 
   &__item {
-    width: 5rem;
-    text-align: end;
+    text-align: center;
+    height: 19px;
+    display: inline-block;
+    line-height: 19px;
+    margin-left: 10px;
+    padding: 0 5px;
+    border-radius: 3px;
+    background: rgb(230 230 230 / 26%);
     .iconfont {
-      color: $title-name-color;
+      color: #bcbcbc;
       padding-right: 5px;
     }
   }

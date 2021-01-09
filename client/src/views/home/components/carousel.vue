@@ -1,18 +1,17 @@
 <template>
-  <van-swipe class="carousel" indicator-color='#fff' :autoplay="3000" lazy-render width="100%">
+  <van-swipe @change="onChange" class="carousel" indicator-color='#fff' :autoplay="4000" lazy-render width="100%">
     <van-swipeItem v-for="(item, index) in lists" :key="index">
       <router-link class="carousel-content" target="_blank" :to="{path: '/article', query: { articleId: item.article_id }}">
         <el-image fit="contain" class="carousel-img" :src = item.articleImg />
+        <div class="mask"></div>
         <div class="carousel-panel">
           <div class="carousel-panel__title">{{item.title}}</div>
-          <div class="carousel-panel__info">
-            <span class="carousel-name">{{item.author}}</span>
-            <span class="split-line">—</span>
-            <span class="carousel-time">{{formatDate(item.createtime)}}</span>
-          </div>
         </div>
       </router-link>
     </van-swipeItem>
+    <template #indicator>
+      <div class="custom-indicator">{{ current + 1 }}/{{lists.length}}</div>
+    </template>
   </van-swipe>
 </template>
 
@@ -24,17 +23,29 @@ import formatDate from '../../../utils/formatDate'
 @Component
 export default class extends Vue {
   private lists: any = []
+  private current: number = 0
   private async created() {
     getCarousel().then(res => {
       this.lists = res.data
     })
+  };
+  private onChange(index: number) {
+    this.current = index
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.custom-indicator {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 2px 5px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.1);
+}
 .carousel {
-  height: 14.166667rem /* 170/12 */;
+  height: 264px;
   width: 100%;
   background: #fff;
   border-radius: 2px;
@@ -57,11 +68,11 @@ export default class extends Vue {
     padding: 2rem /* 24/12 */;
     box-sizing: border-box;
     z-index: 9;
-    bottom: 0;
     width: 100%;
     color: #fff;
+    bottom: 0;
     @include flexcolumn($jc:space-around, $ai: none);
-    background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.6));
+    background: linear-gradient(to bottom,rgba(6,6,8,0),rgba(6,6,8,.4));
     @media only screen and (max-width: 767px) { 
       padding: 1rem;
     }

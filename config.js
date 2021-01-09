@@ -3,7 +3,6 @@ const RPCClient = require('@alicloud/pop-core').RPCClient
 /**
  * jd-jimdb配置
  */
-
 exports.getRedisConfig = () => {
   if (process.env.NODE_ENV === 'dev') {
     return {
@@ -24,9 +23,18 @@ exports.getRedisConfig = () => {
 /**
  * github授权登陆
  */
-exports.OAUTH_GITHUB = {
-  clientID: '55e4c0ed566c7683c287',
-  clientSecret: '63bf8f9e71f1dae121b4a76282729380814f7316'
+exports.getOauthGithub = () => {
+  if (process.env.NODE_ENV === 'dev') {
+    return {
+      clientID: '648d810630237ddc91d2',
+      clientSecret: '613e195b9403a7be2055158ad0438898faf2b685'
+    }
+  } else {
+    return {
+      clientID: '55e4c0ed566c7683c287',
+      clientSecret: '63bf8f9e71f1dae121b4a76282729380814f7316'
+    }
+  }
 }
 
 /**

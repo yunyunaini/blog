@@ -7,10 +7,10 @@
       <el-dialog
         :visible.sync="dialogVisible"
         width="600px"
-        title="意见反馈"
+        title="联系我们"
         >
-        <el-form :model="ruleForm" ref="ruleForm" label-width="80px">
-          <el-form-item label="反馈渠道" prop="resource">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px">
+          <el-form-item  label="反馈渠道" prop="resource">
             <el-radio-group v-model="ruleForm.resource">
               <el-radio label="交流分享"></el-radio>
               <el-radio label="产品建议"></el-radio>
@@ -18,7 +18,7 @@
               <el-radio label="其他"></el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="意见内容" prop="content">
+          <el-form-item label="反馈内容" prop="content">
             <el-input style="width:80%" :autosize="{ minRows: 3, maxRows: 5}" type="textarea" placeholder="请输入内容" v-model="ruleForm.content"></el-input>
           </el-form-item>
           <el-form-item label="联系方式" prop="phone">
@@ -27,7 +27,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button size="medium" @click="dialogVisible = false">取 消</el-button>
-          <el-button size="medium" type="primary" @click="dialogVisible = false">确 定</el-button>
+          <el-button size="medium" type="primary" @click="submitForm">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -36,18 +36,37 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-
+import { getMessage } from '../../api/actions'
+import { Form as ElForm, Input } from 'element-ui'
 @Component({
   name: 'message'
 })
 export default class extends Vue {
+  private rules:any = {
+  content: [
+    { required: true, message: '请输入反馈内容', trigger: 'blur' },
+  ]}
   private dialogVisible: boolean = false
-  private ruleForm:any = {
+  private ruleForm: any = {
     resource: '交流分享',
     content: '',
     phone: ''
   }
-  
+
+  submitForm() {
+    (this.$refs.ruleForm as any).validate(async (valid: boolean) => {
+      if (valid) {
+        this.dialogVisible = false
+        getMessage(this.ruleForm)
+      } else {
+        return false
+      }
+    })
+  }
+
+  // resetForm(formName: any) {
+  //   (this.$refs[formName] as ElForm).resetFields()
+  // }
 }
 </script>
 

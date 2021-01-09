@@ -74,66 +74,10 @@ exports.getSearchResult = async ctx => {
   ctx.body = new SuccessModel({ articles: articleList, users: userLists})
 }
 
-// const getLikelists = async (author, page) => {
-//   const tagPage = Number(page) * 10
-//   let sql = `SELECT blogs.article_id, createtime, articleTag, author, title,likeCount, articleImg, comments, reviews FROM blogs, likes where likes.like_author = '${author}' and likes.article_id = blogs.article_id order by likes.id desc `
-//   if (tagPage >= 0) {
-//     sql += ` limit ${tagPage} , 10;`
-//   }
-//   return exec(sql)
-// }
-// const getReviews = async (actionsdData = {}) => {
-//   const article_id = actionsdData.article_id
-//   const type = actionsdData.type
-//   let sql = ''
-//   if (type == 'ask') {
-//     sql = `update questions set reviews = reviews + 1 where question_id='${article_id}';`
-//   } else {
-//     sql = `update blogs set reviews = reviews + 1 where article_id='${article_id}';`
-//   }
-//   const updataData = await exec(sql)
-//   if (updataData.affectedRows > 0) {
-//     return true
-//   } else {
-//     return false
-//   }
-// }
-
-// const adoptComment = async (actionsdData = {}) => {
-//   const comment_id = actionsdData.comment_id
-//   const comment_status = actionsdData.comment_status
-//   const sqlArticle = `update comment set comment_status = '${comment_status}' where comment_id='${comment_id}';`
-//   const updataData = await exec(sqlArticle)
-
-//   const article_id = actionsdData.askId
-//   const sqlAsk = `select comment_status from comment where article_id = '${article_id}' `
-//   const AskData = await exec(sqlAsk)
-
-//   var result = AskData.some(item => {
-//     if (item.comment_status == '1') {
-//       return true
-//     }
-//   })
-//   if (result) {
-//     const sqlQuestion = `update questions set status = 2 where question_id='${article_id}';`
-//     await exec(sqlQuestion)
-//   } else{
-//     const sqlQuestion = `update questions set status = 1 where question_id='${article_id}';`
-//     await exec(sqlQuestion)
-//   }
-
-//   if (updataData.affectedRows > 0) {
-//     return true
-//   } else {
-//     return false
-//   }
-// }
-
-
-// module.exports = {
-//   getLike,
-//   removeLike,
-//   getLikelists,
-//   getReviews,
-//   adoptComment
-// }
+// 反馈信息
+exports.addMessage = async ctx => {
+  const { resource, content, phone } = ctx.request.body
+  await userModel.createMessage([resource, content, phone, ''])
+    .then(() => ctx.body = new SuccessModel('提交成功'))
+    .catch(ctx.body = new ErrorModel('提交失败'))
+}

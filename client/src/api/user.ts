@@ -18,7 +18,7 @@ export const logout = (data: {author: string}) =>
     method: 'post',
     data
 })
-export const getuserList = (params?: {top: number}) =>
+export const getuserList = (params: {top?: number, page?: number}) =>
   request({
     url: 'api/user/getuserList',
     method: 'get',

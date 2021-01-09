@@ -51,3 +51,11 @@ export const getSharelist = (params: any) =>
     method: "get",
     params,
   });
+
+export const getMessage = (data: any) =>
+  request({
+    url: 'api/actions/message',
+    method: 'post',
+    data
+  })
+  
