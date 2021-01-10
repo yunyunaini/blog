@@ -21,7 +21,7 @@
         <i class="iconfont" v-else :style="{color: article.islike ? '#6cbd65' : '' }">&#xe67e;</i>
         <span :style="{color: article.islike ? '#6cbd65' : '' }">{{article.likeCount}}</span>
       </span>
-       <span class="footer-action__item mobile-none">
+      <span class="footer-action__item mobile-none">
         <i class="iconfont">&#xe8c7;</i>
         <span>{{article.reviews}}</span>
       </span>

@@ -28,7 +28,7 @@ export default class extends Vue {
   box-sizing: border-box;
   background-color: #fff;
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 10px 16px;
   .card-share {
     display: flex;
     justify-content: flex-start;

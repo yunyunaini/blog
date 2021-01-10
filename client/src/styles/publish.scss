@@ -88,9 +88,8 @@
 
 // 移动端隐藏
 .mobile-none {
-  // display: block;
   @media only screen and (max-width: 768px) { 
-    display: none;
+    display: none!important;
   }
 }
 .search-keyword {

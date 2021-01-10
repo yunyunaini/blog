@@ -37,12 +37,9 @@ export default class extends Vue {
   background: #fff;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
-  @include flexcenter($jc: space-between, $ai: center);
+  @include flexcenter($jc: space-between, $ai: none);
   @media only screen and (max-width: 767px) { 
     padding: 1.5rem 1rem;
-  }
-  &-title {
-    vertical-align: text-top;
   }
   &:hover {
     background-color: $hover-color;

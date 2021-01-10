@@ -29,9 +29,11 @@
           <div v-if="isEmpty">
             <empty description="该类目下还没有文章" />
           </div>
-          <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
-            <div class="section-list" v-for="(article, index) in articles" :key="index">
-              <articleCard class="section-list__card" v-if="article.articleType !== 'about'" :article= article />
+          <van-list class="section-container" v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
+            <div v-for="(article, index) in articles" :key="index">
+              <div class="section-list" v-if="article.articleType !== 'about'">
+                <articleCard :article= article />
+              </div>
             </div>
           </van-list>
         </div>
@@ -42,7 +44,6 @@
         <information />
         <sticky :z-index= 8 :sticky-top="70">
           <!-- <NavCard /> -->
-          
           <QrCard />
           <rankingCard />
           <rewardCard />
@@ -153,6 +154,15 @@ export default class extends Vue {
   & > img {
     height: 90px;
     width: 100%;
+  }
+}
+
+.section-container {
+  @media only screen and (max-width: 768px) { 
+    background-color: #f4f5f5;
+    .section-list {
+      margin-bottom: 10px;
+    }
   }
 }
 

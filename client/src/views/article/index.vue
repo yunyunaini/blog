@@ -191,7 +191,7 @@ export default class  extends Vue {
 
   &-header {
     @include flexcenter($jc: space-between);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     .article-time {
       letter-spacing: 1px;
       @include textRoundRight();
