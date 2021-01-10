@@ -50,7 +50,10 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 .article-footer {
-  @include flexcenter($jc: space-between, $ai: center);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 4px;
   font-size: 1.083333rem /* 13/12 */;
 }
