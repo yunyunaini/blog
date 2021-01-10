@@ -45,7 +45,7 @@ export default class extends Vue {
   background: rgba(0, 0, 0, 0.1);
 }
 .carousel {
-  height: 264px;
+  height: 200px;
   width: 100%;
   background: #fff;
   border-radius: 2px;

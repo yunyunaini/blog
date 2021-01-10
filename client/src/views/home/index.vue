@@ -31,15 +31,20 @@
           </div>
           <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
             <div class="section-list" v-for="(article, index) in articles" :key="index">
-              <articleCard :article= article />
+              <articleCard v-if="article.articleType !== 'about'" :article= article />
             </div>
           </van-list>
         </div>
       </div>
       <div class="asside">
+        <AdviseCard />
+        <!-- <NoticeCard /> -->
         <information />
+         
         <sticky :z-index= 8 :sticky-top="70">
+          <!-- <NavCard /> -->
           <rewardCard />
+          <QrCard />
           <rankingCard />
           <website />
         </sticky>
@@ -57,13 +62,18 @@ import rewardCard from './components/reward.vue'
 import website from './components/website.vue'
 import Header from '@/components/header/index.vue'
 import rankingCard from '@/components/card/rankingCard/index.vue'
+import NavCard from '@/components/card/navCard/index.vue'
 import tabs from '@/components/tabs/index.vue'
 import empty from '@/components/emptyBox/index.vue'
 import Sticky from '@/components/Sticky/index.vue'
 import { UserModule } from '../../store/modules/user'
+import QrCard from './components/qrcard.vue'
+import AdviseCard from './components/adviseCard.vue'
+import NoticeCard from './components/noticeCard.vue'
 import { getArticles, getArticleTags, getSignature } from '../../api/blog'
 import { IArticleData } from '../../api/types'
 import { TAG_LIST, Qtag } from '../../global'
+
 export interface Ifilters {
   page: number
   activeIndex: string
@@ -73,8 +83,12 @@ export interface Ifilters {
   name:'home',
   components: {
     Header,
+    QrCard,
     carousel,
     articleCard,
+    NavCard,
+    AdviseCard,
+    NoticeCard,
     rankingCard,
     rewardCard,
     website,
@@ -148,9 +162,9 @@ export default class extends Vue {
   display: flex;
   align-items: center;
   font-size: 16px;
-  margin-bottom: 10px;
   padding: 0px 20px;
   background: #fff;
+  border-bottom: 1px solid #e2e2e2;
   &__item {
     box-sizing: border-box;
     cursor: pointer;
@@ -163,11 +177,11 @@ export default class extends Vue {
     margin-right: 20px;
     border-radius: 2px;
     &:hover {
-      background-color: #f16b6f;
+      background-color: $primary;
       color: #fff;
     }
     &--active {
-      background-color: #f16b6f;
+      background-color: $primary;
       color: #fff;
     }
   }

@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <router-view />
-      <back-to-top />
-      <LiveMessage />
-      <login />
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+    <back-to-top />
+    <LiveMessage />
+    <login />
   </div>
 </template>
 

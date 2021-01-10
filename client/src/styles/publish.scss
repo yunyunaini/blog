@@ -46,12 +46,15 @@
 .section-wrapper {
   @include flexcolumn($jc:center, $ai: none);
   min-height: 148px;
+  background: #fff;
 }
 
 // 首页文字标题样式
 .article-title {
   font-size: 18px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
   color: $title-color;
   @include twoLines();
   &:hover {

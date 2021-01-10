@@ -88,3 +88,13 @@ exports.getCarousel = async ctx => {
     ctx.body = new ErrorModel('获取轮播图失败')
   }
 }
+
+exports.getAbout = async ctx => {
+  try {
+    const result = await userModel.getAbout()
+    ctx.body = new SuccessModel(result)
+  } catch (error) {
+    ctx.body = new ErrorModel('获取轮播图失败')
+  }
+}
+

@@ -1,13 +1,15 @@
 <template>
   <router-link class="article" target="_blank" :to="{path: '/article', query: { articleId: article.article_id }}">
+    <div class="article-content">
+      <div class="article-title">
+        {{article.title}}
+      </div>
+      <div class="article-desc">{{article.ellipsis}}</div>
+      <articleAction :article= article />
+    </div>
     <div class="article-imgWrap mobile-none" v-if="article.articleImg">
       <el-image fit="cover" lazy class="article-img" :src = article.articleImg ></el-image>
       <!-- <div class="article-type">{{article.articleType}}</div> -->
-    </div>
-    <div class="article-content">
-      <div class="article-title">{{article.title}}</div>
-      <div class="article-desc">{{article.ellipsis}}</div>
-      <articleAction :article= article />
     </div>
   </router-link>
 </template>
@@ -30,7 +32,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .article {
   width: 100%;
-  padding: 1rem 1.34rem;
+  padding: 16px 20px;
   overflow: hidden;
   background: #fff;
   box-sizing: border-box;
@@ -40,18 +42,14 @@ export default class extends Vue {
     padding: 1.5rem 1rem;
   }
   &-title {
-    display: flex;
-    &__text {
-      padding-left: 8px;
-    }
+    vertical-align: text-top;
   }
   &:hover {
     background-color: $hover-color;
   }
   .article-imgWrap {
     width: 165px;
-    height: 134px;
-    margin-right: 16px;
+    margin-left: 16px;
     box-sizing: border-box;
     background-color: #fff;
     overflow: hidden;
@@ -75,9 +73,6 @@ export default class extends Vue {
     overflow: hidden;
     box-sizing: border-box;
     @include flexcolumn($jc:space-between, $ai: none);
-    @media only screen and (max-width: 767px) { 
-      height: 124px;  
-    }
     .article-desc {
       line-height: 1.5;
       font-size: 14px;

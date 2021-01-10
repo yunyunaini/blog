@@ -29,6 +29,7 @@ router.post('/blog/update', blogControl.updateBlog)
 router.post('/blog/delete', blogControl.deleteBlog)
 router.post('/blog/select', blogControl.selectBlog)
 router.get('/blog/getCarousel', blogControl.getCarousel)
+router.get('/blog/getAbout', blogControl.getAbout)
 
 router.post('/actions/like', actionsControl.addLike)
 router.post('/actions/removelike', actionsControl.removeLike)

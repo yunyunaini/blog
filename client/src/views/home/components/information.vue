@@ -11,11 +11,11 @@
       </div>
       </div>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <div class="information">
         <div class="information-userBg">
           <i class='mask'></i>
-          <img src="https://notion.cx/wp-content/uploads/2021/01/6289c6d02fcfb5f7_1_cover.jpg" />
+          <img object-fit='cover' src="https://img12.360buyimg.com/imagetools/jfs/t1/158709/26/2556/37403/5ff9717dE1a9ecded/14dd63d0c4070401.png" />
         </div>
         <div class="user user-bottom">
           <img class="user-avatar" :src= userInfo.avatar />
@@ -40,7 +40,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -165,7 +165,6 @@ export default class extends Vue {
   overflow: hidden;
   &> img {
     width: 240px;
-    height: 83px;
   }
 }
 </style>

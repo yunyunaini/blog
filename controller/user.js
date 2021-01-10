@@ -107,7 +107,7 @@ exports.oauthLogin = async ctx => {
     let avatar = result.avatar_url
     ctx.session.username = username
     ctx.session.author = username
-    const findUserCount = await userModel.findDataCountByName(username)
+    const findUserCount = await userModel.findDataCountByName(result.login)
     if (findUserCount[0].count >= 1) {
       ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' })
     } else {
@@ -120,7 +120,7 @@ exports.oauthLogin = async ctx => {
 
 // github授权登陆获取access_token
 const fetchGitHubAccessToken = async (code) => {
-  const result = getOauthGithub()
+  const result = await getOauthGithub()
   const tokenResponse = await axios({
     method: 'post',
     url: 'https://github.com/login/oauth/access_token?' +

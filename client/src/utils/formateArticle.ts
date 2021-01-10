@@ -5,8 +5,8 @@ export function html_decode (str:string) {
   if (str.length === 0) return ''
   s = str.replace(/</g, "<")
   s = s.replace(/>/g, ">")
-  s = s.replace(/ /g, " ")
-  s = s.replace(/'/g, "'\'")
-  s = s.replace(/"/g, "'\'")
+  // s = s.replace(/ /g, " ")
+  // s = s.replace(/'/g, "'\'")
+  // s = s.replace(/"/g, "'\'")
   return s
 }

@@ -81,4 +81,8 @@ export const getCarousel = () =>
     method: "get",
   })
 
-
+export const getAbout = () =>
+  request({
+    url: "api/blog/getAbout",
+    method: "get",
+  })
