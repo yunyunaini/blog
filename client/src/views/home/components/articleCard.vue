@@ -1,9 +1,7 @@
 <template>
   <router-link class="article" target="_blank" :to="{path: '/article', query: { articleId: article.article_id }}">
     <div class="article-content">
-      <div class="article-title">
-        {{article.title}}
-      </div>
+      <div class="article-title">{{article.title}}</div>
       <div class="article-desc">{{article.ellipsis}}</div>
       <articleAction :article= article />
     </div>
@@ -37,7 +35,7 @@ export default class extends Vue {
   background: #fff;
   box-sizing: border-box;
   border-bottom: 1px solid $border-color;
-  @include flexcenter($jc: space-between, $ai: none);
+  @include flexcenter($jc: space-between, $ai: center);
   @media only screen and (max-width: 767px) { 
     padding: 1.5rem 1rem;
   }
@@ -69,7 +67,10 @@ export default class extends Vue {
     height: 114px;
     overflow: hidden;
     box-sizing: border-box;
-    @include flexcolumn($jc:space-between, $ai: none);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     .article-desc {
       line-height: 1.5;
       font-size: 14px;

@@ -46,7 +46,11 @@
 .section-wrapper {
   @include flexcolumn($jc:center, $ai: none);
   min-height: 148px;
-  background: #fff;
+  background-color: #fff;
+  @media only screen and (max-width: 1024px) { 
+    min-height: 48px;
+    background-color: #f4f5f5;
+  }
 }
 
 // 首页文字标题样式
