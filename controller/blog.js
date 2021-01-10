@@ -74,8 +74,8 @@ exports.deleteBlog = async ctx => {
 
 // 文章设置为首页轮播
 exports.selectBlog = async ctx => {
-  let { id } = ctx.request.body
-  await userModel.selectBlog(id, 'carousel')
+  let { id, articleType } = ctx.request.body
+  await userModel.selectBlog(id, articleType)
     .then(() => { ctx.body = new SuccessModel() })
     .catch(ctx.body = new ErrorModel())
 }
