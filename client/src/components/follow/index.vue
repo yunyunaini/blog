@@ -46,6 +46,7 @@ export default class extends Vue {
       this.show ? await getfollow({author: UserModule.author}) : await getunfollow({author: UserModule.author})
     } else {
       UserModule.handleIslogin(true)
+      UserModule.handleLoggedType('login')
     }
   }
 

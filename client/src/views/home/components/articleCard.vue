@@ -48,8 +48,8 @@ export default class extends Vue {
     background-color: $hover-color;
   }
   .article-imgWrap {
-    width: 165px;
-    margin-left: 16px;
+    width: 123px;
+    margin-left: 30px;
     box-sizing: border-box;
     background-color: #fff;
     overflow: hidden;
@@ -57,8 +57,8 @@ export default class extends Vue {
   }
 
   &-img {
-    width: 165px;
-    height: 114px;
+    width: 123px;
+    height: 87px;
     position: relative;
     transition: all 0.3s;
     overflow: hidden;

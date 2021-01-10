@@ -31,7 +31,7 @@
           </div>
           <van-list v-model="loading" :finished="noMore" :finished-text="isEmpty ? '' : '没有更多内容了'" @load="onLoad" >
             <div class="section-list" v-for="(article, index) in articles" :key="index">
-              <articleCard v-if="article.articleType !== 'about'" :article= article />
+              <articleCard class="section-list__card" v-if="article.articleType !== 'about'" :article= article />
             </div>
           </van-list>
         </div>
@@ -40,12 +40,12 @@
         <AdviseCard />
         <!-- <NoticeCard /> -->
         <information />
-         
         <sticky :z-index= 8 :sticky-top="70">
           <!-- <NavCard /> -->
-          <rewardCard />
+          
           <QrCard />
           <rankingCard />
+          <rewardCard />
           <website />
         </sticky>
       </div>

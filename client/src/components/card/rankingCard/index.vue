@@ -45,7 +45,7 @@ export default class extends Vue {
 .card {
   cursor: pointer;
   .ranking {
-    padding: 12px 15px;
+    padding: 10px 15px;
     &:hover {
       background-color: hsla(0,0%,84.7%,.1);
     }
