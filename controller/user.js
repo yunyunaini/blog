@@ -103,20 +103,24 @@ exports.oauthLogin = async ctx => {
   const requestToken = ctx.request.query.code
   const accessToken = await fetchGitHubAccessToken(requestToken)
   console.log(accessToken)
-  await fetchGitHubUser(accessToken).then(async result => {
-    let username = result.login
-    let avatar = result.avatar_url
-    ctx.session.username = username
-    ctx.session.author = username
-    const findUserCount = await userModel.findDataCountByName(result.login)
-    if (findUserCount[0].count >= 1) {
-      ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' })
-    } else {
-      await userModel.addUser([genPassword(123456), username, Date.now(), username, avatar])
-        .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
-        .catch(new ErrorModel('注册失败'))
-    }
-  })
+  if (accessToken) {
+    await fetchGitHubUser(accessToken).then(async result => {
+      let username = result.login
+      let avatar = result.avatar_url
+      ctx.session.username = username
+      ctx.session.author = username
+      const findUserCount = await userModel.findDataCountByName(result.login)
+      if (findUserCount[0].count >= 1) {
+        ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' })
+      } else {
+        await userModel.addUser([genPassword(123456), username, Date.now(), username, avatar])
+          .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
+          .catch(new ErrorModel('注册失败'))
+      }
+    })
+  } else {
+    new ErrorModel('授权失败')
+  }
 }
 
 // github授权登陆获取access_token
@@ -139,7 +143,7 @@ const fetchGitHubAccessToken = async (code) => {
 const fetchGitHubUser = async (accessToken) => {
   const result = await axios({
     method: 'get',
-    url: `https://api.github.com/user`,
+    url: `https://api.github.com/user?access_token=${accessToken}`,
     headers: {
       accept: 'application/json',
       Authorization: `token ${accessToken}`

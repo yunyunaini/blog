@@ -11,7 +11,6 @@ export default class extends Vue {
   async created() {
     const data = await UserModule.oauthLogin(window.location.search.split('=')[1])
     if (data) {
-      // 关闭窗口并刷新原页面
       window.opener.location.reload()
       window.close()
     }
