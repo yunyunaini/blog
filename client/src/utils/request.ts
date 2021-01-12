@@ -4,7 +4,7 @@ import { UserModule } from '../store/modules/user'
 
 const BASE_URL = process.env.NODE_ENV === "development" ? "/api" : ""
 const service = axios.create({
-  timeout: 5000,
+  timeout: 60000,
   baseURL: BASE_URL,
   withCredentials: true,
 });

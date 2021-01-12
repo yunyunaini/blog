@@ -11,6 +11,7 @@ const KoaStatic = require('koa-static');
 const fs = require('fs')
 const app = new Koa()
 const router = require('./router')
+const koa2Timeout = require('./middleware/koa-timeout')
 
 const env = process.env.NODE_ENV  // 环境参数
 if (env === 'dev') {
@@ -24,6 +25,7 @@ app.use(KoaStatic(
   path.join(__dirname, './dist')
 ))
 
+app.use(koa2Timeout)
 onerror(app,{json: '服务器出现异常'}) 
 
 // 请求压缩
