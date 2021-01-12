@@ -102,6 +102,7 @@ exports.register = async ctx => {
 exports.oauthLogin = async ctx => {
   const requestToken = ctx.request.query.code
   const accessToken = await fetchGitHubAccessToken(requestToken)
+  console.log(accessToken)
   await fetchGitHubUser(accessToken).then(async result => {
     let username = result.login
     let avatar = result.avatar_url
