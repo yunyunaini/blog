@@ -11,8 +11,8 @@ export default class extends Vue {
   async created() {
     const data = await UserModule.oauthLogin(window.location.search.split('=')[1])
     if (data) {
-      window.opener.location.reload()
-      window.close()
+      const href = window.localStorage.preventHref
+      window.location.href = href 
     }
   }
 }
