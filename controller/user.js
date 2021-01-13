@@ -4,7 +4,8 @@ const userModel = require('../lib/mysql')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 const { secret, client, getOauthGithub } = require('../config')
 const jwt = require('jsonwebtoken')
-const axios = require('axios')
+const fetch = require('node-fetch')
+const { resolve } = require('bluebird')
 const CODE = Math.random().toString().slice(-6)
 
 // 登陆生成token
@@ -100,56 +101,67 @@ exports.register = async ctx => {
 
 // github授权登陆
 exports.oauthLogin = async ctx => {
-  const requestToken = ctx.request.query.code
-  const accessToken = await fetchGitHubAccessToken(requestToken)
-  console.log(accessToken)
-  if (accessToken) {
-    await fetchGitHubUser(accessToken).then(async result => {
-      let username = result.login
-      let avatar = result.avatar_url
-      ctx.session.username = username
-      ctx.session.author = username
-      const findUserCount = await userModel.findDataCountByName(result.login)
-      if (findUserCount[0].count >= 1) {
-        ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' })
-      } else {
-        await userModel.addUser([genPassword(123456), username, Date.now(), username, avatar])
-          .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
-          .catch(new ErrorModel('注册失败'))
-      }
-    })
+  const { code } = ctx.request.body
+  const result = await fetchGitHubAccessToken(code)
+  let username = result.login
+  let avatar = result.avatar_url
+  ctx.session.username = username
+  ctx.session.author = username
+  const findUserCount = await userModel.findDataCountByName(result.login)
+  if (findUserCount[0].count >= 1) {
+    ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' })
   } else {
-    new ErrorModel('授权失败')
+    await userModel.addUser([genPassword(123456), username, Date.now(), username, avatar])
+      .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
+      .catch(ctx.body = new ErrorModel('注册失败'))
   }
 }
 
 // github授权登陆获取access_token
 const fetchGitHubAccessToken = async (code) => {
   const result = await getOauthGithub()
-  const tokenResponse = await axios({
-    method: 'post',
-    url: 'https://github.com/login/oauth/access_token?' +
-      `client_id=${result.clientID}&` +
-      `client_secret=${result.clientSecret}&` +
-      `code=${code}`,
-    headers: {
-      accept: 'application/json'
-    }
-  })
-  return tokenResponse.data.access_token
-}
-
-// 获取github用户信息
-const fetchGitHubUser = async (accessToken) => {
-  const result = await axios({
-    method: 'get',
-    url: `https://api.github.com/user?access_token=${accessToken}`,
-    headers: {
-      accept: 'application/json',
-      Authorization: `token ${accessToken}`
-    }
-  })
-  return result.data
+  const params = {
+    client_id: result.clientID,
+    client_secret: result.clientSecret,
+    code: code
+  }
+  try {
+    return new Promise((resolve) => {
+      fetch('https://github.com/login/oauth/access_token', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(params)
+      }).then(res1 => {
+        return res1.text();
+      })
+        .then(body => {
+          const args = body.split('&');
+          let arg = args[0].split('=');
+          access_token = arg[1];
+          return access_token
+        })
+        .then(async token => {
+          const url = 'https://api.github.com/user' + '?access_token=' + token
+          await fetch(url, {
+            method: 'get',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `token ${token}`
+            }
+          })
+            .then(res2 => {
+              return res2.json();
+            })
+            .then(async result => {
+              resolve(result)
+            })
+        })
+    })  
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 exports.logout = async ctx => {

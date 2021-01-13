@@ -15,7 +15,7 @@ router.get('/user/getuserList', userControl.getUserList)
 router.post('/user/updateUser', userControl.updateUser)
 router.post('/user/sendSmsCodeToUser', userControl.sendSmsCodeToUser)
 router.post('/user/register', userControl.register)
-router.get('/user/oauth', userControl.oauthLogin)
+router.post('/user/oauth', userControl.oauthLogin)
 
 router.get('/comment/getComment', commentControl.getCommentList)
 router.post('/comment/new', commentControl.createComment)

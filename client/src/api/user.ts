@@ -25,11 +25,11 @@ export const getuserList = (params: {top?: number, page?: number}) =>
     params
 })
 
-export const getoauth = (params: {code: string}) =>
+export const getoauth = (data: {code: string}) =>
   request({
     url: 'api/user/oauth',
-    method: 'get',
-    params
+    method: 'post',
+    data
 })
 
 export const register = (data: IRegister) =>
@@ -44,7 +44,6 @@ export const sendSmsCodeToUser = (data: {username: string}) =>
     method: 'post',
     data
 })
-
 
 export const getUserInfo = (params?: author) =>
   request({
