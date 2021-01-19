@@ -12,6 +12,11 @@
   }
 }
 
+.toc-title {
+  padding-top: 60px;/* 60px是导航栏高度 */
+  margin-top: -60px;
+}
+
 //我的页导航
 .section-author {
   .el-tabs__header {

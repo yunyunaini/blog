@@ -25,8 +25,8 @@
           <el-image fit="cover" class="article-img" :src="article.articleImg"></el-image>
         </div>
         <div class="article-main">{{ article.title }}</div>
-        <div ref="article" v-highlight>
-          <div class="article-content" v-html="article.content"></div>
+        <div ref="article">
+          <div class="article-content" v-highlight v-html="article.content"></div>
         </div>
         <div class="article-comment">
           <comment />

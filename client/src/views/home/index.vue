@@ -9,7 +9,7 @@
     <div class="main mg-top-126">
       <div class="section">
         <div class="section-carousel">
-          <carousel />
+          <carousel :carousel= carousel />
         </div>
         <div class="section-wrapper mg-top-20">
           <!-- <div class="section-nav">
@@ -71,7 +71,7 @@ import { UserModule } from '../../store/modules/user'
 import QrCard from './components/qrcard.vue'
 import AdviseCard from './components/adviseCard.vue'
 import NoticeCard from './components/noticeCard.vue'
-import { getArticles, getArticleTags, getSignature } from '../../api/blog'
+import { getArticles, getArticleTags, getSignature, getCarousel } from '../../api/blog'
 import { IArticleData } from '../../api/types'
 import { TAG_LIST, Qtag } from '../../global'
 
@@ -102,6 +102,7 @@ export interface Ifilters {
 
 export default class extends Vue {
   private articles: IArticleData[] = []
+  private carousel: IArticleData[] = []
   private filters: Ifilters = { page: 1, activeIndex: '0', articleTag: '' }
   private visible: boolean = true
   private loading: boolean = false
@@ -143,7 +144,9 @@ export default class extends Vue {
     }
   }
   private async created() {
-    this.fetchData()
+    const { data } = await getCarousel()
+    this.carousel = data
+    await this.fetchData()
   }
 }
 </script>

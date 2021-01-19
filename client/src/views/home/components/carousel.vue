@@ -1,6 +1,6 @@
 <template>
   <van-swipe @change="onChange" class="carousel" indicator-color='#fff' :autoplay="4000" lazy-render width="100%">
-    <van-swipeItem v-for="(item, index) in lists" :key="index">
+    <van-swipeItem v-for="(item, index) in carousel" :key="index">
       <router-link class="carousel-content" target="_blank" :to="{path: '/article', query: { articleId: item.article_id }}">
         <el-image fit="contain" class="carousel-img" :src = item.articleImg />
         <div class="mask"></div>
@@ -10,7 +10,7 @@
       </router-link>
     </van-swipeItem>
     <template #indicator>
-      <div class="custom-indicator">{{ current + 1 }}/{{lists.length}}</div>
+      <div class="custom-indicator">{{ current + 1 }}/{{carousel.length}}</div>
     </template>
   </van-swipe>
 </template>
@@ -22,13 +22,8 @@ import { getCarousel } from '../../../api/blog'
 import formatDate from '../../../utils/formatDate'
 @Component
 export default class extends Vue {
-  private lists: any = []
+  @Prop() private carousel!: IArticleData
   private current: number = 0
-  private async created() {
-    getCarousel().then(res => {
-      this.lists = res.data
-    })
-  };
   private onChange(index: number) {
     this.current = index
   }

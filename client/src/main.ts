@@ -3,15 +3,15 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './permission'
-import "normalize.css/normalize.css";
+import "normalize.css/normalize.css"
 import './utils/rem'
-import "vant/lib/index.css";
+import "vant/lib/index.css"
 import formatDate from './utils/formatDate'
 
-
+import "highlight.js/styles/github.css"
 import * as Element from 'element-ui'
-import "element-ui/lib/theme-chalk/base.css"; // fade style
-import "element-ui/lib/theme-chalk/index.css";
+import "element-ui/lib/theme-chalk/base.css" // fade style
+import "element-ui/lib/theme-chalk/index.css"
 
 import hljs from 'highlight.js'
 
@@ -53,7 +53,6 @@ Vue.use(Element);
  * 注册全局指令
  * v-highlight
  */
-import "highlight.js/styles/github.css";
 Vue.directive('highlight', function (el) {
   let highlight = el.querySelectorAll('pre code')
   highlight.forEach((block)=>{
