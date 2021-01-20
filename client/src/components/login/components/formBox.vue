@@ -116,7 +116,13 @@ export default class extends Vue {
     this.isPassing = true
     setTimeout(async () => {
       this.verifyVisible = false
-      await sendSmsCodeToUser({username: this.formData.username})
+      await sendSmsCodeToUser({username: this.formData.username}).then((res: any) => {
+        Message({
+          message: res.message,
+          type: 'success',
+          duration: 10 * 1000
+        })
+      })
       this.visible = false
       let timer = setInterval(() => {
         if (this.time > 1) { 
@@ -136,7 +142,13 @@ export default class extends Vue {
       this.verifyVisible = true
     }
     if (this.isPassing === true) {
-      await sendSmsCodeToUser({username: this.formData.username})
+      await sendSmsCodeToUser({username: this.formData.username}).then((res: any) => {
+        Message({
+          message: res.message,
+          type: 'success',
+          duration: 10 * 1000
+        })
+      })
       this.visible = false
       let timer = setInterval(() => {
         if (this.time > 1) { 

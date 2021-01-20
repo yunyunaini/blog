@@ -65,28 +65,34 @@ exports.updateUser = async ctx => {
 // 发送短信
 exports.sendSmsCodeToUser = async ctx => {
   const { username } = ctx.request.body
-  let sendSms_params = {
-    "RegionId": "cn-hangzhou",
-    "PhoneNumbers": `${username}`,
-    "SignName": "起航网",
-    "TemplateCode": "SMS_180059442",
-    "TemplateParam": `{code: ${CODE}}`
-  }
-  const client = new Core({
-    accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
-    accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
-    endpoint: 'https://dysmsapi.aliyuncs.com',
-    apiVersion: '2017-05-25'
-  })
-  const result = await client.request('SendSms', sendSms_params, { method: 'POST'})
-    .then(res => { return res }, (ex) => { return ex})
-    console.log(result)
-  if ('Code' in result) {
-    ctx.body = new SuccessModel('验证码发送成功')
+  const checkphone = await userModel.findDataCountByName(username)
+  if (checkphone[0].count >= 1) {
+    ctx.body = new ErrorModel('该手机号已被注册！')
   } else {
-    const limit = result.data.Message.split(':')[1]
-    ctx.body = new ErrorModel(limit >= 10 ? '同一手机号每天只能发送 10 条验证码' : '同一手机号每小时只能发送 5 条验证码')
+    ctx.body = new SuccessModel(`您的验证码为 ${CODE}`)
   }
+  // 特俗原因，禁用短信，打开注释即可
+  // let sendSms_params = {
+  //   "RegionId": "cn-hangzhou",
+  //   "PhoneNumbers": `${username}`,
+  //   "SignName": "起航网",
+  //   "TemplateCode": "SMS_180059442",
+  //   "TemplateParam": `{code: ${CODE}}`
+  // }
+  // const client = new Core({
+  //   accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
+  //   accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
+  //   endpoint: 'https://dysmsapi.aliyuncs.com',
+  //   apiVersion: '2017-05-25'
+  // })
+  // const result = await client.request('SendSms', sendSms_params, { method: 'POST'})
+  //   .then(res => { return res }, (ex) => { return ex})
+  // if ('Code' in result) {
+  //   ctx.body = new SuccessModel('验证码发送成功')
+  // } else {
+  //   const limit = result.data.Message.split(':')[1]
+  //   ctx.body = new ErrorModel(limit >= 10 ? '同一手机号每天只能发送 10 条验证码' : '同一手机号每小时只能发送 5 条验证码')
+  // }
 }
 
 // 注册用户

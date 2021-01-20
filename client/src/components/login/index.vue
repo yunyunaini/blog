@@ -83,6 +83,7 @@ export default class extends Vue {
       }
     } else {
       const data = await UserModule.Register(event)
+      console.log(data)
       this.visibal = false
       if (data && data.errno === 0) {
         this.$notify({
