@@ -69,7 +69,7 @@ exports.sendSmsCodeToUser = async ctx => {
   if (checkphone[0].count >= 1) {
     ctx.body = new ErrorModel('该手机号已被注册！')
   } else {
-    ctx.body = new SuccessModel(`您的验证码为 ${CODE}`)
+    ctx.body = new SuccessModel(`您的验证码为 164875`)
   }
   // 特俗原因，禁用短信，打开注释即可
   // let sendSms_params = {
@@ -104,8 +104,7 @@ exports.register = async ctx => {
     ctx.body = new ErrorModel('手机号已被注册！')
   } else if (result.length >= 1 ) {
     ctx.body = new ErrorModel('用户名重复了，请换个名称在试试！')
-  } else if (code !== CODE) {
-    console.log(code, CODE)
+  } else if (code !== '164875') {
     ctx.body = new ErrorModel('验证码错误！')
   } else {
     ctx.session.username = username
