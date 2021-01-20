@@ -98,6 +98,9 @@
     border: 1px solid $primary;
   }
 }
+.el-dialog__body {
+  padding: 2rem 1.66667rem;
+}
 
 // markdown
 .markdown {

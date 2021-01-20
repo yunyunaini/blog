@@ -1,5 +1,3 @@
-const RPCClient = require('@alicloud/pop-core').RPCClient
-
 /**
  * jd-jimdb配置
  */
@@ -36,16 +34,6 @@ exports.getOauthGithub = () => {
     }
   }
 }
-
-/**
- * 短信配置
- */
-exports.client = new RPCClient({
-  accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
-  accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
-  endpoint: 'https://dysmsapi.aliyuncs.com',
-  apiVersion: '2017-05-25'
-})
 
 // 加密密钥
 exports.secret = 'WJiol#23123_'

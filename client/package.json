@@ -39,6 +39,7 @@
     "sass-loader": "^8.0.0",
     "stylus-resources-loader": "0.0.4",
     "typescript": "~3.5.3",
+    "vue-drag-verify-img": "^1.1.0",
     "vue-template-compiler": "^2.6.10",
     "webpackbar": "^5.0.0-3"
   }

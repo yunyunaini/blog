@@ -2,8 +2,9 @@ const { exec } = require('../lib/db')
 const { genPassword } = require('../utils/cryp')
 const userModel = require('../lib/mysql')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
-const { secret, client, getOauthGithub } = require('../config')
+const { secret, getOauthGithub } = require('../config')
 const jwt = require('jsonwebtoken')
+const Core = require('@alicloud/pop-core')
 const fetch = require('node-fetch')
 const { resolve } = require('bluebird')
 const CODE = Math.random().toString().slice(-6)
@@ -71,8 +72,15 @@ exports.sendSmsCodeToUser = async ctx => {
     "TemplateCode": "SMS_180059442",
     "TemplateParam": `{code: ${CODE}}`
   }
+  const client = new Core({
+    accessKeyId: 'LTAI4FcGip5kqy1LB4ru2GYh',
+    accessKeySecret: 'BvmhpNobez41GIas1vA5z1QSbhTGIm',
+    endpoint: 'https://dysmsapi.aliyuncs.com',
+    apiVersion: '2017-05-25'
+  })
   const result = await client.request('SendSms', sendSms_params, { method: 'POST'})
     .then(res => { return res }, (ex) => { return ex})
+    console.log(result)
   if ('Code' in result) {
     ctx.body = new SuccessModel('验证码发送成功')
   } else {
@@ -83,13 +91,15 @@ exports.sendSmsCodeToUser = async ctx => {
 
 // 注册用户
 exports.register = async ctx => {
-  const { username, password, author } = ctx.request.body
+  const { username, password, author, code } = ctx.request.body
   const result = await userModel.findUser(author)
   const checkphone = await userModel.findDataCountByName(username)
-  if (result.length >= 1) {
-    ctx.body = new ErrorModel('用户名重复了，请换个名称在试试！')
-  } else if (checkphone[0].count >= 1) {
+  if (checkphone[0].count >= 1) {
     ctx.body = new ErrorModel('手机号已被注册！')
+  } else if (result.length >= 1 ) {
+    ctx.body = new ErrorModel('用户名重复了，请换个名称在试试！')
+  } else if (code !== CODE) {
+    ctx.body = new ErrorModel('验证码错误！')
   } else {
     ctx.session.username = username
     ctx.session.author = author

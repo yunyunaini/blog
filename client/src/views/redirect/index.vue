@@ -8,6 +8,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { UserModule } from '../../store/modules/user'
 @Component
 export default class extends Vue {
+  private show: boolean = false
   async created() {
     const search = window.location.search.split('=')[1]
     const data = await UserModule.oauthLogin(search)
