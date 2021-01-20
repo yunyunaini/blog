@@ -39,7 +39,7 @@ import { IArticleData, IUserInfo  } from '../../../api/types'
 import articleTitle from '@/components/article/articleTitle.vue'
 import articleAction from '@/components/article/articleAction.vue'
 import { UserModule } from '../../../store/modules/user'
-import { getArticleList,delArticle } from '../../../api/blog'
+import { getArticleList, delArticle } from '../../../api/blog'
 import empty from '@/components/emptyBox/index.vue'
 @Component({
   components: {
@@ -64,6 +64,7 @@ export default class extends Vue {
   }
 
   private onLoad() {
+    this.page = this.page + 1
     this.fetchData()
   }
   

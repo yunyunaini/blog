@@ -103,7 +103,7 @@ export interface Ifilters {
 export default class extends Vue {
   private articles: IArticleData[] = []
   private carousel: IArticleData[] = []
-  private filters: Ifilters = { page: 1, activeIndex: '0', articleTag: '' }
+  private filters: Ifilters = { page: 0, activeIndex: '0', articleTag: '' }
   private visible: boolean = true
   private loading: boolean = false
   private noMore: boolean = false
@@ -146,7 +146,6 @@ export default class extends Vue {
   private async created() {
     const { data } = await getCarousel()
     this.carousel = data
-    await this.fetchData()
   }
 }
 </script>

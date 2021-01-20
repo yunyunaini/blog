@@ -127,7 +127,6 @@ const fetchGitHubAccessToken = async (code) => {
   }
   try {
     return new Promise((resolve) => {
-      console.log('--请求github授权登录--')
       fetch('https://github.com/login/oauth/access_token', {
         method: 'post',
         headers: {
@@ -138,14 +137,12 @@ const fetchGitHubAccessToken = async (code) => {
         return res1.text();
       })
         .then(body => {
-          console.log('body', body)
           const args = body.split('&');
           let arg = args[0].split('=');
           access_token = arg[1];
           return access_token
         })
         .then(async token => {
-          console.log('token', token)
           const url = 'https://api.github.com/user' + '?access_token=' + token
           await fetch(url, {
             method: 'get',
@@ -158,7 +155,6 @@ const fetchGitHubAccessToken = async (code) => {
               return res2.json();
             })
             .then(async result => {
-              console.log('result', result)
               resolve(result)
             })
         })
