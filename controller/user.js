@@ -105,6 +105,7 @@ exports.register = async ctx => {
   } else if (result.length >= 1 ) {
     ctx.body = new ErrorModel('用户名重复了，请换个名称在试试！')
   } else if (code !== CODE) {
+    console.log(code, CODE)
     ctx.body = new ErrorModel('验证码错误！')
   } else {
     ctx.session.username = username

@@ -83,9 +83,8 @@ export default class extends Vue {
       }
     } else {
       const data = await UserModule.Register(event)
-      console.log(data)
       this.visibal = false
-      if (data && data.errno === 0) {
+      if (!data.errno) {
         this.$notify({
           title: '注册成功',
           message: '欢迎来到起航',
