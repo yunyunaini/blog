@@ -30,7 +30,7 @@
       <el-button type="primary" plain>编辑个人资料</el-button>
     </router-link>
     <div v-else>
-      <author-follow :author= userInfo.author />
+      <author-follow :author= userInfo />
     </div>
   </div>
 </template>

@@ -10,7 +10,7 @@
                 <div class="info-desc">{{user.job}} @{{user.company || '添加公司'}}</div>
               </div>
             </authorInfo>
-            <author-follow v-if="nickname !== user.nickname" :author = user.nickname ></author-follow>
+            <author-follow v-if="nickname !== user.nickname" :author = user ></author-follow>
           </div>
       </van-list>
       </div>

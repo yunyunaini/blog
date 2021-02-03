@@ -24,11 +24,11 @@ export default class extends Vue {
   private lists: string[] = []
 
   @Watch('author', {immediate:true, deep: true})
-  private async watchAuthor(old:string, val: string) {
+  private async watchAuthor(old: any, val: string) {
     this.follows.filter((item: any) => {
       this.lists.push(item.author)
     })
-    this.show = await this.lists.indexOf(old) != -1 ? true : false
+    this.show = await this.lists.indexOf(old.author) != -1 ? true : false
   }
 
   get nickname() {
@@ -40,10 +40,10 @@ export default class extends Vue {
   get follows() {
     return followsModule.follows
   }
-  private async follow (nickname: string) {
+  private async follow (nickname: any) {
     if (this.token) {
       this.show = !this.show
-      this.show ? await getfollow({author: UserModule.author}) : await getunfollow({author: UserModule.author})
+      this.show ? await getfollow({author: nickname.author}) : await getunfollow({author: nickname.author})
     } else {
       UserModule.handleIslogin(true)
       UserModule.handleLoggedType('login')

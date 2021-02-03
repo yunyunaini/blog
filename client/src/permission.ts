@@ -17,7 +17,7 @@ router.beforeEach(async(to: Route, from: Route, next: any) => {
     // 获取用户的信息
     await UserModule.GetUserInfo() 
     // 用户关注人
-    // await followsModule.getFollows() 
+    await followsModule.getFollows() 
   }
   next()
   NProgress.done()

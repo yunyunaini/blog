@@ -9,14 +9,14 @@
       </div>
     </div>
     <div class="footer-action">
-     <span class="footer-action__item">
+      <span class="footer-action__item">
         <span>{{formatDate(article.createtime)}}</span>
       </span>
       <span class="footer-action__item">
         <i class="iconfont">&#xe600;</i>
         <span>{{article.comments}}</span>
       </span>
-      <span class="footer-action__item">
+      <span class="footer-action__item" @click.stop.prevent="handleClickLike(article)">
         <i class="iconfont" v-if="!article.islike">&#xe67e;</i>
         <i class="iconfont" v-else :style="{color: article.islike ? '#6cbd65' : '' }">&#xe67e;</i>
         <span :style="{color: article.islike ? '#6cbd65' : '' }">{{article.likeCount}}</span>
@@ -33,17 +33,28 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { IArticleData } from '../../../api/types'
 import formatDate from '../../../utils/formatDate'
+import { UserModule } from '../../../store/modules/user'
 
 @Component({
-  components: {
-  }
 })
 
 export default class extends Vue {
   @Prop() private article!: IArticleData
 
+  get token() {
+    return UserModule.token
+  }
+
   private handleClick(author: string) {
     window.open(`/author?author=${author}`, '_blank')
+  }
+
+  private handleClickLike(article: IArticleData) {
+    this.token ? this.handleLike(article) : UserModule.handleIslogin(true)
+  }
+
+  private async handleLike(article: IArticleData) {
+    console.log('// todo')
   }
 }
 </script>
