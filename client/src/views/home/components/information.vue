@@ -7,7 +7,7 @@
         <p>Better Life, Better Work</p>
       </div>
       <div class="information-bottom" @click="submit('login')">
-        <span>登陆</span>
+        <span>登录</span>
       </div>
       </div>
     </div>

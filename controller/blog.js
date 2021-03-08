@@ -66,8 +66,8 @@ exports.updateBlog = async ctx => {
 
 // 删除文章
 exports.deleteBlog = async ctx => {
-  let { id } = ctx.request.body
-  await userModel.deleteBlog(id)
+  let { article_id } = ctx.request.body
+  await userModel.deleteBlog(article_id)
     .then(() => {ctx.body = new SuccessModel('文章删除成功')})
     .catch(ctx.body = new ErrorModel('文章删除失败'))
 }

@@ -31,7 +31,6 @@ export default class App extends Vue {
   //     this.isRouterAlive = true
   //   }) 
   // }
- 
 }
 </script>
 

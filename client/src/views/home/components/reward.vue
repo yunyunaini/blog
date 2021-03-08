@@ -7,6 +7,7 @@
       <el-dialog
         :visible.sync="dialogVisible"
         width="640px"
+        :modal-append-to-body='false'
         center>
         <el-row class="reward-content" :gutter="20">
           <el-col :span="9">
@@ -63,6 +64,7 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .reward {
   margin-bottom: 20px;
+
   cursor: pointer;
   .reward-content {
     height: 240px;

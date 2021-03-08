@@ -9,13 +9,20 @@ const shareControl = require('../controller/share')
 router.prefix('/api')
 
 router.post('/user/login', userControl.login)
+router.post('/user/managelogin', userControl.managelogin)
 router.post('/user/logout', userControl.logout)
 router.get('/user/getInfo', userControl.getUserInfo)
+router.get('/user/getManInfo',userControl.getManageInfo)
 router.get('/user/getuserList', userControl.getUserList)
 router.post('/user/updateUser', userControl.updateUser)
 router.post('/user/sendSmsCodeToUser', userControl.sendSmsCodeToUser)
 router.post('/user/register', userControl.register)
 router.post('/user/oauth', userControl.oauthLogin)
+router.post('/user/findManage',userControl.findManage)
+router.post('/user/addManage',userControl.addManage)
+router.post('/user/deleteManage',userControl.deleteManage)
+
+
 
 router.get('/comment/getComment', commentControl.getCommentList)
 router.post('/comment/new', commentControl.createComment)

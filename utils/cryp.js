@@ -13,7 +13,7 @@ function md5(content) {
 function genPassword(password) {
   const str = `password=${password}&key=${SECRET_KEY}`
   return md5(str)
-}
+} 
 module.exports = {
   genPassword
 }

@@ -90,7 +90,7 @@ const routes = [
     name: "excellent",
     component: () => import(/* webpackChunkName: "paper" */ './views/excellent/index.vue'),
   },
-   {
+  {
     path: "/about",
     name: "about",
     component: () => import(/* webpackChunkName: "paper" */ './views/about/index.vue'),

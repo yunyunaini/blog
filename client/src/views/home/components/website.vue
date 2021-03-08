@@ -10,7 +10,7 @@
       网站素材均来源于网络，如有侵权请联系作者
     </div>
     <div class="website-item">
-      联系邮箱📮 972774037@qq.com
+      联系邮箱📮 1025766900@qq.com
     </div>
     <!-- <div class="website-item">
       <router-link class="hover" target="_blank" to="http://www.miibeian.gov.cn/">京ICP备19058301号-2</router-link>

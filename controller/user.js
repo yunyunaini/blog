@@ -26,7 +26,7 @@ exports.getUserByAuthor = async (author) => {
   return Object.assign(userInfo[0], total[0], follow_author[0], following_author[0])
 }
 
-// 登陆
+// 用户登陆
 exports.login = async ctx => {
   let { username, password } = ctx.request.body
   const data = await userModel.login(username, genPassword(password))
@@ -37,6 +37,59 @@ exports.login = async ctx => {
   } else {
     ctx.body = new ErrorModel('用户名或密码错误!')
   }
+}
+
+//管理员登录
+exports.managelogin = async ctx => {
+  let { username, password } = ctx.request.body
+  const data = await userModel.managelogin(username, genPassword(password))
+  if (data.length >= 1) {
+    ctx.session.username = username
+    ctx.session.name = data[0].name
+    ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '登录成功' })
+  } else {
+    ctx.body = new ErrorModel('用户名或密码错误!')
+  }
+}
+
+//管理员查询
+exports.findManage = async ctx =>{
+  let { name } = ctx.request.body
+  let data=null;
+  if(name!=undefined){
+    data = await userModel.findManage(name)
+  }else{
+    data = await userModel.findManage('')
+  }
+  if(data){
+    ctx.body = new SuccessModel(data)
+  }
+}
+
+//添加管理员
+exports.addManage = async ctx =>{
+  const { name,username, password } = ctx.request.body
+  ctx.session.username = username
+  console.log()
+  await userModel.addManage([name,username,genPassword(password),'https://notion.cx/wp-content/themes/b2/Assets/fontend/images/default-avatar.png',Date.now()])
+  .then(() => ctx.body = new SuccessModel({ accessToken: generateActon(username), message: '注册成功，欢迎来到起航！' }))
+  .catch(new ErrorModel('注册失败'))
+}
+
+//删除管理员
+exports.deleteManage = async ctx => {
+  const { username } = ctx.request.body
+  await userModel.deleteManage(username).
+  then(() => {ctx.body = new SuccessModel('管理员删除成功')})
+  .catch(ctx.body = new ErrorModel('管理员删除失败'))
+}
+
+
+//获取管理员信息
+exports.getManageInfo = async ctx => {
+  const username = ctx.query.username ? ctx.query.username : ctx.session.username
+  const result = await userModel.getManageInfo(username)
+  ctx.body = new SuccessModel(result)
 }
 
 // 获取用户信息
@@ -71,7 +124,7 @@ exports.sendSmsCodeToUser = async ctx => {
   } else {
     ctx.body = new SuccessModel(`您的验证码为 164875`)
   }
-  // 特俗原因，禁用短信，打开注释即可
+  // 特殊原因，禁用短信，打开注释即可
   // let sendSms_params = {
   //   "RegionId": "cn-hangzhou",
   //   "PhoneNumbers": `${username}`,
